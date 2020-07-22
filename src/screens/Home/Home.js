@@ -3,7 +3,7 @@ import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'rea
 import styles from './styles';
 import { firebase } from '../../firebase/config'
 
-export default function HomeScreen(props) {
+export default function Home(props) {
 
     const [entityText, setEntityText] = useState('')
     const [entities, setEntities] = useState([])

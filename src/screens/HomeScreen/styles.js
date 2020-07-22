@@ -39,9 +39,19 @@ export default StyleSheet.create({
         color: 'white',
         fontSize: 16
     },
+    submitBtn: {
+        height: 47,
+        borderRadius: 5,
+        backgroundColor: '#788eec',
+        width: 200,
+        alignItems: "center",
+        justifyContent: 'center',
+        margin: 10
+    },
     listContainer: {
         marginTop: 20,
         padding: 20,
+        height: 400
     },
     entityContainer: {
         marginTop: 16,

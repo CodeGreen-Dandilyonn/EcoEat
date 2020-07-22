@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { useNavigation } from '@react-navigation/native';
 import styles from './styles';
 import { firebase } from '../../firebase/config'
 
 export default function HomeScreen(props) {
-
     const [entityText, setEntityText] = useState('')
     const [entities, setEntities] = useState([])
+    const navigation = useNavigation();
 
     const entityRef = firebase.firestore().collection('entities')
     const userID = props.extraData.id
@@ -51,7 +52,7 @@ export default function HomeScreen(props) {
         }
     }
 
-    const renderEntity = ({item, index}) => {
+    const renderEntity = ({ item, index }) => {
         return (
             <View style={styles.entityContainer}>
                 <Text style={styles.entityText}>
@@ -59,6 +60,10 @@ export default function HomeScreen(props) {
                 </Text>
             </View>
         )
+    }
+
+    const submitPressed = () => {
+        navigation.navigate("Recipe Details");
     }
 
     return (
@@ -77,7 +82,7 @@ export default function HomeScreen(props) {
                     <Text style={styles.buttonText}>Add</Text>
                 </TouchableOpacity>
             </View>
-            { entities && (
+            {entities && (
                 <View style={styles.listContainer}>
                     <FlatList
                         data={entities}
@@ -87,6 +92,11 @@ export default function HomeScreen(props) {
                     />
                 </View>
             )}
+            <TouchableOpacity style={styles.submitBtn} onPress={submitPressed}>
+                <Text style={styles.buttonText}>Find Recipes</Text>
+            </TouchableOpacity>
+
         </View>
     )
+
 }

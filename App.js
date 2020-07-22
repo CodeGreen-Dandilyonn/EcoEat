@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { LoginScreen, HomeScreen, RegistrationScreen } from './src/screens'
+import { LoginScreen, Home, RegistrationScreen } from './src/screens'
 import ModifyPantry from './src/screens/ModifyPantry/ModifyPantry'
 import Profile from './src/screens/Profile/Profile'
 import RecipeDetails from './src/screens/RecipeDetails/RecipeDetails'
@@ -50,11 +50,12 @@ export default function App() {
   const [loading, setLoading] = useState(true)
   const [user, setUser] = useState(null)
 
+
   function RecipeStack() {
     return (
       <HomeStack.Navigator>
         <HomeStack.Screen name="Home">
-          {props => <HomeScreen {...props} extraData={user} />}
+          {props => <Home {...props} extraData={user} />}
         </HomeStack.Screen>
         <HomeStack.Screen name="Recipe Details" component={RecipeDetails} />
       </HomeStack.Navigator>

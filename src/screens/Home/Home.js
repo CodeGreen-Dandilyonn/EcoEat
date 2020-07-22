@@ -4,7 +4,12 @@ import { useNavigation } from '@react-navigation/native';
 import styles from './styles';
 import { firebase } from '../../firebase/config'
 
+<<<<<<< HEAD:src/screens/HomeScreen/HomeScreen.js
 export default function HomeScreen(props) {
+=======
+export default function Home(props) {
+
+>>>>>>> 10f0806d19e28d220251e17c4cdbece5109a9614:src/screens/Home/Home.js
     const [entityText, setEntityText] = useState('')
     const [entities, setEntities] = useState([])
     const navigation = useNavigation();

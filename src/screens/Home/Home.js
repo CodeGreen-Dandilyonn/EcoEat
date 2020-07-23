@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import styles from './styles';
 import { firebase } from '../../firebase/config'
 
-export default function Home(props) {
+export default (props) => {
 
     const [entityText, setEntityText] = useState('')
     const [entities, setEntities] = useState([])

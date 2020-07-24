@@ -5,7 +5,7 @@ import styles from './styles';
 import { firebase } from '../../firebase/config'
 
 
-export default function LoginScreen({navigation}) {
+export default ({ navigation }) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
@@ -31,7 +31,7 @@ export default function LoginScreen({navigation}) {
                             return;
                         }
                         const user = firestoreDocument.data()
-                        navigation.navigate('Home', {user})
+                        navigation.navigate('Home', { user })
                     })
                     .catch(error => {
                         alert(error)
@@ -53,7 +53,7 @@ export default function LoginScreen({navigation}) {
                 <TextInput
                     style={styles.input}
                     placeholder='E-mail'
-                    placeholderTextColor="#aaaaaa"
+                    placeholderTextColor="#A6BCD0"
                     onChangeText={(text) => setEmail(text)}
                     value={email}
                     underlineColorAndroid="transparent"
@@ -61,7 +61,7 @@ export default function LoginScreen({navigation}) {
                 />
                 <TextInput
                     style={styles.input}
-                    placeholderTextColor="#aaaaaa"
+                    placeholderTextColor="#A6BCD0"
                     secureTextEntry
                     placeholder='Password'
                     onChangeText={(text) => setPassword(text)}

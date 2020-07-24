@@ -53,7 +53,7 @@ export default ({ navigation }) => {
                 <TextInput
                     style={styles.input}
                     placeholder='E-mail'
-                    placeholderTextColor="#aaaaaa"
+                    placeholderTextColor="#A6BCD0"
                     onChangeText={(text) => setEmail(text)}
                     value={email}
                     underlineColorAndroid="transparent"
@@ -61,7 +61,7 @@ export default ({ navigation }) => {
                 />
                 <TextInput
                     style={styles.input}
-                    placeholderTextColor="#aaaaaa"
+                    placeholderTextColor="#A6BCD0"
                     secureTextEntry
                     placeholder='Password'
                     onChangeText={(text) => setPassword(text)}

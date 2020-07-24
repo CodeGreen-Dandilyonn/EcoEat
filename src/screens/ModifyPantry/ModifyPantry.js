@@ -70,10 +70,21 @@ export default (props) => {
     return (
         <View style={styles.container}>
             <View style={styles.formContainer}>
+            <TextInput
+             style={styles.inputSearch}
+             placeholder='Search'
+             value={entityText}
+             placeholderTextColor="#A6BCD0"
+             underlineColorAndroid="transparent"
+             autoCapitalize="none"
+            />
+            <TouchableOpacity style={styles.submitBtnSearch} onPress={submitPressed}>
+                <Text style={styles.buttonText}>Search</Text>
+            </TouchableOpacity>
                 <TextInput
                     style={styles.input}
                     placeholder='Add new entity'
-                    placeholderTextColor="#aaaaaa"
+                    placeholderTextColor="#A6BCD0"
                     onChangeText={(text) => setEntityText(text)}
                     value={entityText}
                     underlineColorAndroid="transparent"

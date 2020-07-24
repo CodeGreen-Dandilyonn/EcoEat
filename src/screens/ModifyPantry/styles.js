@@ -24,13 +24,34 @@ export default StyleSheet.create({
         overflow: 'hidden',
         backgroundColor: 'white',
         paddingLeft: 16,
-        flex: 1,
+        flex: 3,
         marginRight: 5
+    },
+    inputSearch: {
+        height: 48,
+        borderRadius: 5,
+        overflow: 'hidden',
+        backgroundColor: 'white',
+        paddingLeft: 16,
+        bottom:50,
+        flex: 2,
+        marginRight: -270
+    },
+    submitBtnSearch: {
+        height: 47,
+        borderRadius: 5,
+        backgroundColor: '#7BED8D',
+        width: 80,
+        alignItems: "center",
+        justifyContent: 'center',
+        left:355,
+        bottom:50,
+        margin: 10
     },
     button: {
         height: 47,
         borderRadius: 5,
-        backgroundColor: '#788eec',
+        backgroundColor: '#7BED8D',
         width: 80,
         alignItems: "center",
         justifyContent: 'center'
@@ -42,7 +63,7 @@ export default StyleSheet.create({
     submitBtn: {
         height: 47,
         borderRadius: 5,
-        backgroundColor: '#788eec',
+        backgroundColor: '#7BED8D',
         width: 200,
         alignItems: "center",
         justifyContent: 'center',

@@ -11,7 +11,7 @@ export default StyleSheet.create({
     recipeTime: {
         alignSelf: 'flex-end',
         marginEnd: marginLeft,
-        marginStart: 20,
+        marginStart: 22,
         height: 80,
         position: 'absolute',
         top: -7,
@@ -23,16 +23,16 @@ export default StyleSheet.create({
         height: 30,
     },
 
-    iconPot: {
-        width: 33,
-        height: 33
+    iconPrice: {
+        width: 25,
+        height: 30,
     },
 
     timeValue: {
         fontSize: 16,
         fontWeight: '400',
         color: Colors.darkGray,
-        marginStart: 14
+        marginStart: 3
 
     },
 
@@ -43,7 +43,8 @@ export default StyleSheet.create({
     },
 
     timeTop: {
-        marginBottom: 3
+        marginBottom: 3,
+        marginStart: -2
     },
 
 })

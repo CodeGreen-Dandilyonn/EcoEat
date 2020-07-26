@@ -10,7 +10,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 export default (id) => {
 
     const navigation = useNavigation();
-    const [recipe, setRecipe] = useState([]);
+    const [recipeDetails, setRecipeDetails] = useState([]);
 
     const parseInstr = (recipeInstr) => {
         let array = [];

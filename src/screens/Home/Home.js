@@ -18,6 +18,7 @@ export default () => {
                 description="Delicious acai bowl packed with hearty fruits like strawberries, blueberries and blackberries."
                 id="1001"
                 isGreen={true}
+                key={index}
             />
         )
     }
@@ -28,7 +29,7 @@ export default () => {
                 <FlatList
                     data={entities}
                     renderItem={renderRecipe}
-                    keyExtractor={(item) => item.id}
+                    keyExtractor={(item, index) => index}
                     removeClippedSubviews={true}
                 />
             </View>

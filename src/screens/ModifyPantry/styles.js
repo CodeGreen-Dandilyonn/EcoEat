@@ -57,6 +57,7 @@ export default StyleSheet.create({
         alignItems: "center",
         justifyContent: 'center'
     },
+    
     buttonText: {
         color: 'white',
         fontSize: 16

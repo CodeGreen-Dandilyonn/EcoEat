@@ -11,6 +11,7 @@ export default (id) => {
 
     const navigation = useNavigation();
     const [recipeDetails, setRecipeDetails] = useState([]);
+    const APIKEY = f3edcb690303427c8511a070b39a73de;
 
     const parseInstr = (recipeInstr) => {
         let array = [];
@@ -21,9 +22,9 @@ export default (id) => {
     }
 
     const getRecipe = (id) => {
-        return fetch(`https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false`)
+        return fetch(`https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false&apiKey=${APIKEY}`)
             .then((res) => res.json())
-            .then((resJson) => setRecipe({
+            .then((resJson) => setRecipeDetails({
                 id: id,
                 title: resJson.title,
                 imageUrl: resJson.image,

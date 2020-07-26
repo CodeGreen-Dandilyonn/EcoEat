@@ -70,7 +70,7 @@ export default (props) => {
     return (
         <View style={styles.container}>
             <View style={styles.formContainer}>
-            <TextInput
+            {/* <TextInput
              style={styles.inputSearch}
              placeholder='Search'
              value={entityText}
@@ -80,7 +80,7 @@ export default (props) => {
             />
             <TouchableOpacity style={styles.submitBtnSearch} onPress={submitPressed}>
                 <Text style={styles.buttonText}>Search</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
                 <TextInput
                     style={styles.input}
                     placeholder='Add new entity'

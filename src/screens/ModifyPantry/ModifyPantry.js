@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View ,SwipeView} from 'react-native'
 import { useNavigation } from '@react-navigation/native';
+import filter from 'lodash.filter';
 import styles from './styles';
 import { firebase } from '../../firebase/config'
 
@@ -32,6 +33,11 @@ export default (props) => {
                 }
             )
     }, [])
+
+    deleteItemById = id => () => {
+        const filteredData = this.state.data.filter(item => item.id !== id);
+        this.setState({ data: filteredData });
+      }
 
     const onAddButtonPress = () => {
         if (entityText && entityText.length > 0) {
@@ -67,10 +73,24 @@ export default (props) => {
         navigation.navigate("Recipe Details");
     }
 
+    // Temporary recipeList variable
+    const recipeInfo = {
+        recipeList: ['butter', 'flour', 'sugar', 'pecans', 'buttermilk', 'salt', 'eggs']
+    }
+
+    handleSearch = text => {
+        const formattedQuery = text.toLowerCase();
+        const data = filter(this.state.fullData, user => {
+            return this.contains(user, formattedQuery);
+        });
+        this.setState({ data, query: text });
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.formContainer}>
-            {/* <TextInput
+            {
+            /* <TextInput
              style={styles.inputSearch}
              placeholder='Search'
              value={entityText}
@@ -80,7 +100,8 @@ export default (props) => {
             />
             <TouchableOpacity style={styles.submitBtnSearch} onPress={submitPressed}>
                 <Text style={styles.buttonText}>Search</Text>
-            </TouchableOpacity> */}
+            </TouchableOpacity> */
+            }
                 <TextInput
                     style={styles.input}
                     placeholder='Add new entity'
@@ -93,17 +114,34 @@ export default (props) => {
                 <TouchableOpacity style={styles.button} onPress={onAddButtonPress}>
                     <Text style={styles.buttonText}>Add</Text>
                 </TouchableOpacity>
+
+                
+                <TouchableOpacity style={styles.clearPantryButton} onPress={onRemoveButtonPress}>
+                <Text style={styles.buttonText}>Clear Pantry </Text>
+                </TouchableOpacity>
+                
+            
             </View>
             {entities && (
                 <View style={styles.listContainer}>
                     <FlatList
                         data={entities}
-                        renderItem={renderEntity}
                         keyExtractor={(item) => item.id}
                         removeClippedSubviews={true}
+                        renderItem= {renderEntity}
+                        /*
+                        renderItem= { ( {renderEntity} ) => (
+                            <View style = { styles.container} >
+                                <SwipeView
+                                onSwipedLeft={() => this.deleteItemById(item.id)}
+                                />
+                            </View>
+                        )}
+                        */
                     />
                 </View>
             )}
+            
             <TouchableOpacity style={styles.submitBtn} onPress={submitPressed}>
                 <Text style={styles.buttonText}>Find Recipes</Text>
             </TouchableOpacity>

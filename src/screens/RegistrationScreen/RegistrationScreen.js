@@ -35,7 +35,7 @@ export default function RegistrationScreen({ navigation }) {
                     .doc(uid)
                     .set(data)
                     .then(() => {
-                        navigation.navigate('Onboarding')
+                        navigation.navigate('Page One')
                     })
                     .catch((error) => {
                         alert(error)

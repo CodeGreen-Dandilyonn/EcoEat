@@ -29,7 +29,7 @@ export default () => {
                 <FlatList
                     data={entities}
                     renderItem={renderRecipe}
-                    keyExtractor={(item, index) => index}
+                    keyExtractor={(item, index) => item.id}
                     removeClippedSubviews={true}
                 />
             </View>

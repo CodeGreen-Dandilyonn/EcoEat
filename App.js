@@ -7,6 +7,9 @@ import { LoginScreen, Home, RegistrationScreen } from './src/screens'
 import ModifyPantry from './src/screens/ModifyPantry/ModifyPantry'
 import Profile from './src/screens/Profile/Profile'
 import RecipeDetails from './src/screens/RecipeDetails/RecipeDetails'
+import PageOne from './src/screens/Onboarding/PageOne'
+import PageTwo from './src/screens/Onboarding/PageTwo'
+import PageThree from './src/screens/Onboarding/PageThree'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { decode, encode } from 'base-64'
 import { firebase } from './src/firebase/config'
@@ -41,6 +44,18 @@ export default function App() {
           .catch((error) => {
             setLoading(false)
           });
+        usersRef
+          .where("id", "==", user.uid)
+          .onSnapshot(
+            querySnapshot => {
+              querySnapshot.forEach(doc => {
+                setOnboardingComplete(doc.data().onboardingComplete)
+              });
+            },
+            error => {
+              console.log("error", error)
+            }
+          )
       } else {
         setLoading(false)
       }
@@ -49,6 +64,7 @@ export default function App() {
 
   const [loading, setLoading] = useState(true)
   const [user, setUser] = useState(null)
+  const [onboardingComplete, setOnboardingComplete] = useState(false)
 
 
   function RecipeStack() {
@@ -100,11 +116,24 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         {user ? (
-          <Stack.Screen name="EcoEat" component={MainTabs} />
+          <>
+            {onboardingComplete ?
+              (<Stack.Screen name="EcoEat" component={MainTabs} />)
+              :
+              (<>
+                <Stack.Screen name="Page One" component={PageOne} />
+                <Stack.Screen name="Page Two" component={PageTwo} />
+                <Stack.Screen name="Page Three">
+                  {props => <PageThree {...props} extraData={user} setOnboardingComplete={() => setOnboardingComplete} />}
+                </Stack.Screen>
+              </>)}
+          </>
         ) : (
             <>
+
               <Stack.Screen name="Login" component={LoginScreen} />
               <Stack.Screen name="Registration" component={RegistrationScreen} />
+
             </>
           )}
       </Stack.Navigator>

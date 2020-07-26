@@ -1,5 +1,10 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { Colors } from '../../colors'
+
+const dimensions = Dimensions.get('window');
+const imageWidth = dimensions.width * 0.9;
+const imageHeight = dimensions.width * 0.7;
+const marginLeft = (dimensions.width - (imageWidth)) / 2;
 
 export default StyleSheet.create({
     container: {
@@ -29,8 +34,9 @@ export default StyleSheet.create({
         fontSize: 14
     },
     image: {
+        width: imageWidth - 30,
         height: 200,
-        width: 315,
+        // marginHorizontal: 30,
         borderRadius: 5
     }
 });

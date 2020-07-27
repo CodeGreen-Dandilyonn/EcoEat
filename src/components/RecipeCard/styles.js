@@ -36,7 +36,6 @@ export default StyleSheet.create({
     image: {
         width: imageWidth - 30,
         height: 200,
-        // marginHorizontal: 30,
         borderRadius: 5
     }
 });

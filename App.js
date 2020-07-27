@@ -106,9 +106,9 @@ export default function App() {
         }}
       >
         <Tab.Screen name="Home" component={RecipeStack} />
-        <HomeStack.Screen name="Modify Pantry">
+        <Tab.Screen name="Modify Pantry">
           {props => <ModifyPantry {...props} extraData={user} />}
-        </HomeStack.Screen>
+        </Tab.Screen>
         <Tab.Screen name="Profile" component={Profile} />
       </Tab.Navigator>
     )
@@ -116,18 +116,18 @@ export default function App() {
 
   return (
     <NavigationContainer >
-      <Stack.Navigator headerMode="none">
+      <Stack.Navigator>
         {user ? (
           <>
             {onboardingComplete ?
               (<Stack.Screen name="EcoEat" component={MainTabs} />)
               :
               (<>
-                <Stack.Screen name="Page One" component={PageOne} />
-                <Stack.Screen name="Page Two" component={PageTwo} />
-                <Stack.Screen name="Page Three" component={PageThree} />
-                <Stack.Screen name="Page Four" component={PageFour} />
-                <Stack.Screen name="Page Five">
+                <Stack.Screen options={{ headerShown: false }} name="Page One" component={PageOne} />
+                <Stack.Screen options={{ headerShown: false }} name="Page Two" component={PageTwo} />
+                <Stack.Screen options={{ headerShown: false }} name="Page Three" component={PageThree} />
+                <Stack.Screen options={{ headerShown: false }} name="Page Four" component={PageFour} />
+                <Stack.Screen options={{ headerShown: false }} name="Page Five">
                   {props => <PageFive {...props} extraData={user} setOnboardingComplete={() => setOnboardingComplete} />}
                 </Stack.Screen>
               </>)}

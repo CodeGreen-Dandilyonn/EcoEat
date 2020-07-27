@@ -12,9 +12,13 @@ export default (props) => {
 
     return (
         <View style={styles.container}>
-            <Text>Page Two</Text>
-            <TouchableOpacity onPress={nextPage}>
-                <Text>Continue</Text>
+            <Image
+                style={styles.image}
+                source={require("./images/pagetwo.png")}
+                resizeMode={'cover'}
+            />
+            <TouchableOpacity onPress={nextPage} style={styles.button}>
+                <Text style={styles.btnText}>Continue</Text>
             </TouchableOpacity>
         </View>
     )

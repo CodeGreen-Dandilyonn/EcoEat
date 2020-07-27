@@ -10,6 +10,8 @@ import RecipeDetails from './src/screens/RecipeDetails/RecipeDetails'
 import PageOne from './src/screens/Onboarding/PageOne'
 import PageTwo from './src/screens/Onboarding/PageTwo'
 import PageThree from './src/screens/Onboarding/PageThree'
+import PageFour from './src/screens/Onboarding/PageFour'
+import PageFive from './src/screens/Onboarding/PageFive'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { decode, encode } from 'base-64'
 import { firebase } from './src/firebase/config'
@@ -113,8 +115,8 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
+    <NavigationContainer >
+      <Stack.Navigator headerMode="none">
         {user ? (
           <>
             {onboardingComplete ?
@@ -123,8 +125,10 @@ export default function App() {
               (<>
                 <Stack.Screen name="Page One" component={PageOne} />
                 <Stack.Screen name="Page Two" component={PageTwo} />
-                <Stack.Screen name="Page Three">
-                  {props => <PageThree {...props} extraData={user} setOnboardingComplete={() => setOnboardingComplete} />}
+                <Stack.Screen name="Page Three" component={PageThree} />
+                <Stack.Screen name="Page Four" component={PageFour} />
+                <Stack.Screen name="Page Five">
+                  {props => <PageFive {...props} extraData={user} setOnboardingComplete={() => setOnboardingComplete} />}
                 </Stack.Screen>
               </>)}
           </>

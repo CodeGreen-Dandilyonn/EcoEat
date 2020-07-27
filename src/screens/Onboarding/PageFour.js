@@ -7,14 +7,14 @@ export default () => {
     const navigation = useNavigation();
 
     const nextPage = () => {
-        navigation.navigate("Page Two");
+        navigation.navigate("Page Five");
     }
 
     return (
         <View style={styles.container}>
             <Image
                 style={styles.image}
-                source={require("./images/pageone.png")}
+                source={require("./images/pagefour.png")}
                 resizeMode={'cover'}
             />
             <TouchableOpacity onPress={nextPage} style={styles.button}>

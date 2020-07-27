@@ -163,12 +163,12 @@ const entities = [
     }
 ]
 
-export default (searchIngredients) => {
+export default (ingredients) => {
 
-    const APIKEY = f3edcb690303427c8511a070b39a73de;
+    const APIKEY = 'f3edcb690303427c8511a070b39a73de';
 
     // user's ingredients is a string array
-    const searchIngredients = searchIngredients.toString();
+    const searchIngredients = ingredients.toString();
     const numResults = 4;
     const [recipes, setRecipes] = useState([]);
 

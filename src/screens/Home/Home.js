@@ -163,7 +163,20 @@ const entities = [
     }
 ]
 
-export default () => {
+export default (ingredients) => {
+
+    const APIKEY = 'f3edcb690303427c8511a070b39a73de';
+
+    // user's ingredients is a string array
+    const searchIngredients = ingredients.toString();
+    const numResults = 4;
+    const [recipes, setRecipes] = useState([]);
+
+    const getRecommendations = (searchIngredients) => {
+        return fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${searchIngredients}&number=${numResults}&apiKey=${APIKEY}`)
+            .then((res) => res.json())
+            .then((resJson) => setRecipes(resJson));
+    }
 
     const renderRecipe = ({ item, index }) => {
         return (
@@ -178,6 +191,7 @@ export default () => {
         )
     }
 
+    // TODO: change flatlist to have data={recipes} once we call API
     return (
         <View style={styles.container}>
             <View style={styles.listContainer}>

@@ -11,6 +11,10 @@ export default (id) => {
 
     const navigation = useNavigation();
     const [recipeDetails, setRecipeDetails] = useState([]);
+    const APIKEY = 'f3edcb690303427c8511a070b39a73de';
+
+    // TODO: get rid of this later
+    // const ID = 716310;
 
     const parseInstr = (recipeInstr) => {
         let array = [];
@@ -21,9 +25,9 @@ export default (id) => {
     }
 
     const getRecipe = (id) => {
-        return fetch(`https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false`)
+        return fetch(`https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false&apiKey=${APIKEY}`)
             .then((res) => res.json())
-            .then((resJson) => setRecipe({
+            .then((resJson) => setRecipeDetails({
                 id: id,
                 title: resJson.title,
                 imageUrl: resJson.image,
@@ -36,6 +40,8 @@ export default (id) => {
             }))
             .catch((error) => console.log(error));
     };
+
+    // useEffect(() => getRecipe(id), []);
 
     // TODO: instructions can be null or empty string and some responses have "cookingMin, prepMin" but others have "readyInMinutes"
 

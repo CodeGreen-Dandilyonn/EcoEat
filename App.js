@@ -7,6 +7,11 @@ import { LoginScreen, Home, RegistrationScreen } from './src/screens'
 import ModifyPantry from './src/screens/ModifyPantry/ModifyPantry'
 import Profile from './src/screens/Profile/Profile'
 import RecipeDetails from './src/screens/RecipeDetails/RecipeDetails'
+import PageOne from './src/screens/Onboarding/PageOne'
+import PageTwo from './src/screens/Onboarding/PageTwo'
+import PageThree from './src/screens/Onboarding/PageThree'
+import PageFour from './src/screens/Onboarding/PageFour'
+import PageFive from './src/screens/Onboarding/PageFive'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { decode, encode } from 'base-64'
 import { firebase } from './src/firebase/config'
@@ -41,6 +46,18 @@ export default function App() {
           .catch((error) => {
             setLoading(false)
           });
+        usersRef
+          .where("id", "==", user.uid)
+          .onSnapshot(
+            querySnapshot => {
+              querySnapshot.forEach(doc => {
+                setOnboardingComplete(doc.data().onboardingComplete)
+              });
+            },
+            error => {
+              console.log("error", error)
+            }
+          )
       } else {
         setLoading(false)
       }
@@ -49,6 +66,7 @@ export default function App() {
 
   const [loading, setLoading] = useState(true)
   const [user, setUser] = useState(null)
+  const [onboardingComplete, setOnboardingComplete] = useState(false)
 
 
   function RecipeStack() {
@@ -88,23 +106,38 @@ export default function App() {
         }}
       >
         <Tab.Screen name="Home" component={RecipeStack} />
-        <HomeStack.Screen name="Modify Pantry">
+        <Tab.Screen name="Modify Pantry">
           {props => <ModifyPantry {...props} extraData={user} />}
-        </HomeStack.Screen>
+        </Tab.Screen>
         <Tab.Screen name="Profile" component={Profile} />
       </Tab.Navigator>
     )
   }
 
   return (
-    <NavigationContainer>
+    <NavigationContainer >
       <Stack.Navigator>
         {user ? (
-          <Stack.Screen name="EcoEat" component={MainTabs} />
+          <>
+            {onboardingComplete ?
+              (<Stack.Screen name="EcoEat" component={MainTabs} />)
+              :
+              (<>
+                <Stack.Screen options={{ headerShown: false }} name="Page One" component={PageOne} />
+                <Stack.Screen options={{ headerShown: false }} name="Page Two" component={PageTwo} />
+                <Stack.Screen options={{ headerShown: false }} name="Page Three" component={PageThree} />
+                <Stack.Screen options={{ headerShown: false }} name="Page Four" component={PageFour} />
+                <Stack.Screen options={{ headerShown: false }} name="Page Five">
+                  {props => <PageFive {...props} extraData={user} setOnboardingComplete={() => setOnboardingComplete} />}
+                </Stack.Screen>
+              </>)}
+          </>
         ) : (
             <>
+
               <Stack.Screen name="Login" component={LoginScreen} />
               <Stack.Screen name="Registration" component={RegistrationScreen} />
+
             </>
           )}
       </Stack.Navigator>

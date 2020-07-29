@@ -163,22 +163,107 @@ const entities = [
     }
 ]
 
-export default (ingredients) => {
+export default (props) => {
 
     const APIKEY = 'f3edcb690303427c8511a070b39a73de';
 
+    // TODO: replace with actual ingredients to search
+    const searchIngredients = ['egg', 'onion', 'salt'];
+
     // user's ingredients is a string array
-    const searchIngredients = ingredients.toString();
+    // console.log("route params = " + route.params.ingredients)
+    // console.log("route params   = " + props.ingredients)
+
+    // const searchIngredients = props.ingredients;
     const numResults = 4;
     const [recipes, setRecipes] = useState([]);
+    const [isLoading, setIsLoading] = useState(false); // change to true
+    const entityRef = firebase.firestore().collection('entities');
+    const userID = props.extraData.id;
+    const [addedIngredients, setAddedIngredients] = useState([]);
 
-    const getRecommendations = (searchIngredients) => {
-        return fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${searchIngredients}&number=${numResults}&apiKey=${APIKEY}`)
-            .then((res) => res.json())
-            .then((resJson) => setRecipes(resJson));
-    }
+    // useEffect(() => {
+    //     console.log("use effect saved ingredients array")
+    //     let savedIngredientsArray = [];
+    //     entityRef
+    //         .where("authorID", "==", userID)
+    //         .get()
+    //         .then((querySnapshot) => {
+    //             querySnapshot.forEach((doc) => {
+    //                 savedIngredientsArray.push(doc.data().text);
+    //                 console.log("adding to array = " + doc.data().text)
+    //             })
+    //         })
+
+    //     setAddedIngredients(savedIngredientsArray);
+    // }, [])
+
+    // const parseIngredients = (recipeIngredients) => {
+    //     let array = [];
+    //     for (let ingredient of recipeIngredients) {
+    //         array.push(ingredient.original);
+    //     }
+    //     return array;
+    // }
+
+    // const parseInstr = (instructions) => {
+    //     return !instructions ? '' : instructions;
+    // }
+
+    // useEffect(() => {
+    //     const getRecommendations = async (searchIngredients) => {
+    //         console.log("search ingredients = " + searchIngredients)
+    //         await fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${searchIngredients}&number=${numResults}&apiKey=${APIKEY}`)
+    //             .then((res) => res.json())
+    //             .then((resJson) => {
+    //                 setRecipes(resJson);
+    //                 console.log("recipes = " + resJson)
+    //             })
+    //             .then(() => setIsLoading(false))
+    //             // .then(() => console.log("recipes = " + recipes))
+    //             .catch((error) => {
+    //                 console.log('error = ' + error);
+    //                 setIsLoading(true);
+    //             });
+    //     };
+
+    //     getRecommendations(searchIngredients);
+
+    // }, []);
+
+    // const parseDetails = (resJson) => {
+    //     console.log("parse details resJon id = " + resJson.id);
+    //     console.log("parse details resJon name = " + resJson.title);
+    //     const details = {
+    //         id: resJson.id,
+    //         title: resJson.title,
+    //         imageUrl: resJson.image,
+    //         sourceUrl: resJson.sourceUrl,
+    //         servings: resJson.servings,
+    //         readyInMin: resJson.readyInMinutes,
+    //         pricePerServing: (parseFloat(resJson.pricePerServing) / 100).toFixed(2),
+    //         ingredients: parseIngredients(resJson.extendedIngredients),
+    //         instructions: parseInstr(resJson.instructions),
+    //         vegetarian: resJson.vegetarian,
+    //         vegan: resJson.vegan
+    //     }
+    //     console.log("details object = " + details)
+    //     console.log("details object = " + JSON.stringify(details))
+    //     return details;
+
+    // }
+
+    // const getDetails = async (id) => {
+    //     return await fetch(`https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false&apiKey=${APIKEY}`)
+    //         .then((res) => res.json())
+    //         .then((resJson) => parseDetails(resJson))
+    //         .then((parsedDetails) => { return parsedDetails })
+
+    // }
 
     const renderRecipe = ({ item, index }) => {
+        // const recipeDetails = getDetails(item.id)
+        // // console.log("recipe details json rendering = " + JSON.stringify(recipeDetails));
         return (
             <RecipeCard
                 img={item.image}
@@ -187,21 +272,31 @@ export default (ingredients) => {
                 id={item.id}
                 isGreen={true}
                 key={index}
+            // recipe={recipeDetails}
             />
         )
     }
 
-    // TODO: change flatlist to have data={recipes} once we call API
-    return (
-        <View style={styles.container}>
-            <View style={styles.listContainer}>
-                <FlatList
-                    data={entities}
-                    renderItem={renderRecipe}
-                    keyExtractor={(item, index) => item.id + ""}
-                    removeClippedSubviews={true}
-                />
+    if (isLoading) {
+        return (
+            <View>
+                <Text style={styles.loading}>Loading...</Text>
             </View>
-        </View>
-    )
+        )
+    } else {
+
+        // TODO: change flatlist to have data={recipes} once we call API
+        return (
+            <View style={styles.container}>
+                <View style={styles.listContainer}>
+                    <FlatList
+                        data={entities}
+                        renderItem={renderRecipe}
+                        keyExtractor={(item, index) => item.id + ""}
+                        removeClippedSubviews={true}
+                    />
+                </View>
+            </View>
+        )
+    }
 }

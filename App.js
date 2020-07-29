@@ -72,7 +72,10 @@ export default function App() {
   function RecipeStack() {
     return (
       <HomeStack.Navigator>
-        <HomeStack.Screen name="Home" component={Home} />
+        {/* <HomeStack.Screen name="Home" component={Home} /> */}
+        <HomeStack.Screen name="Home">
+          {props => <Home {...props} extraData={user} />}
+        </HomeStack.Screen>
         <HomeStack.Screen name="Recipe Details" component={RecipeDetails} />
       </HomeStack.Navigator>
     )
@@ -105,10 +108,11 @@ export default function App() {
           showLabel: false
         }}
       >
-        <Tab.Screen name="Home" component={RecipeStack} />
-        <Tab.Screen name="Modify Pantry">
+        {/* <Tab.Screen name="Home" component={RecipeStack} /> */}
+        <HomeStack.Screen name="Home" component={RecipeStack} />
+        <HomeStack.Screen name="Modify Pantry">
           {props => <ModifyPantry {...props} extraData={user} />}
-        </Tab.Screen>
+        </HomeStack.Screen>
         <Tab.Screen name="Profile" component={Profile} />
       </Tab.Navigator>
     )

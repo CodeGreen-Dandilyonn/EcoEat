@@ -2,7 +2,7 @@ import { StyleSheet, Dimensions } from 'react-native';
 import { Colors } from '../../colors'
 
 const dimensions = Dimensions.get('window');
-const imageWidth = dimensions.width * 0.9;
+const imageWidth = dimensions.width * 0.94;
 const imageHeight = dimensions.width * 0.7;
 const marginLeft = (dimensions.width - (imageWidth)) / 2;
 
@@ -17,17 +17,30 @@ export default StyleSheet.create({
     },
 
     header: {
-        marginTop: 20,
+        marginTop: -22,
         flexDirection: 'row',
-        justifyContent: 'flex-start',
-        marginStart: marginLeft,
+        justifyContent: 'center',
 
     },
 
+    headerLeaf: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 20,
+        marginStart: marginLeft,
+        marginEnd: marginLeft,
+    },
+
     arrowContainer: {
-        marginTop: 1,
-        height: 20,
-        width: 20,
+        height: 40,
+        width: 10 + marginLeft,
+        position: 'relative',
+        top: 20,
+        left: marginLeft
+    },
+
+    arrowContainerLeaf: {
+        top: 3
     },
 
     arrow: {
@@ -35,13 +48,22 @@ export default StyleSheet.create({
         width: 20,
     },
 
+    arrowLeaf: {
+        height: 20,
+        width: 20
+    },
+
+    leaf: {
+        height: 20,
+        width: 20
+    },
+
     recipeTitle: {
         fontSize: 20,
         fontWeight: '600',
-        justifyContent: 'center',
+        textAlign: 'center',
         color: Colors.darkGray,
-        marginStart: imageWidth / 4 - 20
-
+        width: imageWidth - 60,
     },
 
     recipeImage: {
@@ -70,7 +92,7 @@ export default StyleSheet.create({
         marginTop: 14
     },
 
-    // Instructions
+    // if there are no instructions
     instructionText: {
         fontSize: 18,
         fontWeight: '400',
@@ -80,8 +102,33 @@ export default StyleSheet.create({
         marginTop: 14,
     },
 
-    instructions: {
-        marginBottom: 20,
+    noInstr: {
+        marginBottom: 20
+    },
+
+    noImageContainer: {
+        width: imageWidth,
+        height: 20,
+        alignSelf: 'center',
+        borderRadius: 5,
+        overflow: 'hidden',
+        marginTop: 20,
+        marginBottom: 20
+    },
+
+    noImage: {
+        fontSize: 18,
+        fontWeight: '400',
+        color: Colors.darkGray,
+        textAlign: 'center'
+    },
+
+    loading: {
+        textAlign: 'center',
+        fontSize: 24,
+        color: Colors.darkGray,
+        fontWeight: '400',
+        marginTop: 80
     }
 
 })

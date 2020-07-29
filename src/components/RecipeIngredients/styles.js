@@ -21,15 +21,15 @@ export default StyleSheet.create({
 
     bulletPoint: {
         width: 12,
-        height: 12
+        height: 12,
+        marginTop: 5.5
     },
 
     ingredient: {
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        alignItems: 'center',
-        alignSelf: 'flex-start',
-        marginBottom: 6,
+        alignItems: 'flex-start',
+        marginBottom: 6
     },
 
 })

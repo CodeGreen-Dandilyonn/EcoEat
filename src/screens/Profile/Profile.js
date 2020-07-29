@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import styles from './styles';
 import { firebase } from '../../firebase/config'
 
-export default () => {
+export default (props) => {
     const navigation = useNavigation();
 
     // const submitPressed = () => { //TODO: not working
@@ -14,7 +14,7 @@ export default () => {
     const signOutUser = async () => {
         try {
             await firebase.auth().signOut();
-            navigation.navigate('Login')
+            navigation.navigate('LoginScreen')
         } catch (e) {
             console.log(e);
         }
@@ -23,7 +23,7 @@ export default () => {
     return (
         <View style={styles.container}>
             <Text>Profile Page</Text>
-            <TouchableOpacity style={styles.submitBtn} onPress={signOutUser}>
+            <TouchableOpacity style={styles.submitBtn} onPress={props.signout}>
                 <Text style={styles.buttonText}>Logout</Text>
             </TouchableOpacity>
         </View>

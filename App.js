@@ -68,6 +68,14 @@ export default function App() {
   const [user, setUser] = useState(null)
   const [onboardingComplete, setOnboardingComplete] = useState(false)
 
+  const signout = async () => {
+    try {
+      await firebase.auth().signOut();
+      setUser(null)
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   function RecipeStack() {
     return (
@@ -106,14 +114,16 @@ export default function App() {
         }}
       >
         <Tab.Screen name="Home" component={RecipeStack} />
-        <Tab.Screen name="Modify Pantry">
+        <HomeStack.Screen name="Modify Pantry">
           {props => <ModifyPantry {...props} extraData={user} />}
+        </HomeStack.Screen>
+        <Tab.Screen name="Profile">
+          {props => <Profile {...props} signout={signout} />}
         </Tab.Screen>
-        <Tab.Screen name="Profile" component={Profile} />
       </Tab.Navigator>
     )
   }
-  
+
   return (
     <NavigationContainer >
       <Stack.Navigator>

@@ -113,7 +113,7 @@ export default function App() {
       </Tab.Navigator>
     )
   }
-
+  
   return (
     <NavigationContainer >
       <Stack.Navigator>

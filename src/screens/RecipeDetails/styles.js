@@ -17,7 +17,7 @@ export default StyleSheet.create({
     },
 
     header: {
-        marginTop: -22,
+        marginTop: -52,
         flexDirection: 'row',
         justifyContent: 'center',
 
@@ -32,11 +32,16 @@ export default StyleSheet.create({
     },
 
     arrowContainer: {
-        height: 40,
-        width: 10 + marginLeft,
+        height: 50,
+        width: 20 + marginLeft,
         position: 'relative',
-        top: 20,
-        left: marginLeft
+        // marginTop: 10,
+        // top: 20,
+        paddingTop: 10,
+        paddingBottom: 4,
+        left: marginLeft,
+        backgroundColor: 'yellow',
+        marginTop: 10
     },
 
     arrowContainerLeaf: {
@@ -44,8 +49,10 @@ export default StyleSheet.create({
     },
 
     arrow: {
-        height: 20,
-        width: 20,
+        height: 22,
+        width: 22,
+        top: -10,
+        left: 2
     },
 
     arrowLeaf: {

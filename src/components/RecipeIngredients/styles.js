@@ -8,8 +8,9 @@ const marginLeft = (dimensions.width - (imageWidth)) / 2;
 
 export default StyleSheet.create({
     recipeIngredients: {
-        width: imageWidth / 2 + marginLeft,
-        marginStart: marginLeft
+        width: imageWidth / 2 + marginLeft - 10,
+        marginStart: marginLeft,
+        marginEnd: 10
     },
 
     ingredientName: {

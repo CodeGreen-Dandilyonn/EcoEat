@@ -44,7 +44,7 @@ export default (props) => {
     }, [])
 
     useEffect(() => {
-        console.log("use effect saved ingredients array")
+        console.log("use effect saved ingredients array pantry")
         let savedIngredientsArray = [];
         entityRef
             .where("authorID", "==", userID)
@@ -127,6 +127,10 @@ export default (props) => {
             </TouchableOpacity>
         );
     }
+
+    useEffect(() => {
+        console.log("added ingreients pantry = " + addedIngredients)
+    }, [addedIngredients])
 
     return (
         <View>

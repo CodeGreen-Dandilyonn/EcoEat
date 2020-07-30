@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { FlatList, Text, View, Image } from 'react-native'
 import styles from './styles';
 import { firebase } from '../../firebase/config'
 import { Colors } from '../../colors'
@@ -233,14 +233,46 @@ export default (props) => {
         )
     }
 
+    const falsey = [];
+
     if (isLoading) {
         return (
             <View>
                 <Text style={styles.loading}>Loading...</Text>
             </View>
         )
-    } else {
+    }
 
+
+    // no saved ingredients
+    else if (savedIngredients.length == 0) {
+        return (
+            <View style={styles.errorContainer}>
+                <Image style={styles.noIngredientsImage} source={require('../../../assets/ingredients.png')} />
+                <Text style={styles.errorText}>
+                    To help you use up the ingredients you already have on hand,
+                    input your ingredients to get recommended recipes!
+                </Text>
+            </View>
+
+        )
+    }
+
+    // if max number of API calls is reached, response.message is an error message
+    else if (recipes.message) {
+        return (
+            <View style={styles.errorContainer}>
+                <Image style={styles.noRecipesImage} source={require('../../../assets/error.png')} />
+                <Text style={styles.errorText}>
+                    Sorry, we are unable to get recipes for you at the moment.
+                    Please try again later.
+                </Text>
+            </View>
+
+        )
+    }
+
+    else {
         return (
             <View style={styles.container}>
                 <View style={styles.listContainer}>

@@ -7,7 +7,7 @@ const searchWidth = dimensions.width * 0.90;
 export default StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center'
+        alignItems: 'center',
     },
     formContainer: {
         height: 60,

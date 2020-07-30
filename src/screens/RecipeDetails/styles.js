@@ -35,13 +35,10 @@ export default StyleSheet.create({
         height: 50,
         width: 20 + marginLeft,
         position: 'relative',
-        // marginTop: 10,
-        // top: 20,
-        paddingTop: 10,
+        // paddingTop: 10,
         paddingBottom: 4,
         left: marginLeft,
-        backgroundColor: 'yellow',
-        marginTop: 10
+        marginTop: 25
     },
 
     arrowContainerLeaf: {
@@ -71,6 +68,7 @@ export default StyleSheet.create({
         textAlign: 'center',
         color: Colors.darkGray,
         width: imageWidth - 60,
+        marginTop: -10
     },
 
     recipeImage: {
@@ -136,6 +134,22 @@ export default StyleSheet.create({
         color: Colors.darkGray,
         fontWeight: '400',
         marginTop: 80
+    },
+
+    errorText: {
+        textAlign: 'center',
+        fontSize: 18,
+        marginStart: 3 * marginLeft,
+        marginEnd: 3 * marginLeft
+    },
+
+    noRecipeImage: {
+        width: 160,
+        height: 160,
+        marginBottom: 20,
+        marginTop: 20,
+        alignSelf: 'center',
+        marginTop: dimensions.height / 6,
     }
 
 })

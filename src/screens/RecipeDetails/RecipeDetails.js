@@ -13,11 +13,12 @@ export default ({ route }) => {
 
     const id = route.params.id;
     const navigation = useNavigation();
-    const APIKEY = '9d6c3108af68425a934d2fab780094ee'
+    // const APIKEY = '9d6c3108af68425a934d2fab780094ee'
     // const APIKEY = 'ef5e2a0fe78649c68d5f5df5b63ab31f';
-    // const APIKEY = 'f3edcb690303427c8511a070b39a73de';
+    const APIKEY = 'f3edcb690303427c8511a070b39a73de';
     const [isLoading, setIsLoading] = useState(true); // change to true
     const [recipe, setRecipe] = useState(null);
+    const [hasError, setHasError] = useState(false);
 
     const parseIngredients = (recipeIngredients) => {
         let array = [];
@@ -61,6 +62,7 @@ export default ({ route }) => {
                 .then(() => setIsLoading(false))
                 .catch((error) => {
                     console.log('error fetching recipe details = ' + error);
+                    setHasError(true);
                     setIsLoading(true);
                 });
 
@@ -88,7 +90,25 @@ export default ({ route }) => {
     //     instructions: 'Preheat the oven to 200 degrees F.                          Whisk together the flour, pecans, granulated sugar, light brown sugar, baking powder, baking soda, and salt in a medium bowl. Whisk together the eggs, buttermilk, butter and vanilla extract and vanilla bean in a small bowl. Add the egg mixture to the dry mixture and gently mix to combine. Do not overmix. Let the batter sit at room temperature for at least 15 minutes and up to 30 minutes before using.                          Heat a cast iron or nonstick griddle pan over medium heat and brush with melted butter. Once the butter begins to sizzle, use 2 tablespoons of the batter for each pancake and cook until the bubbles appear on the surface and the bottom is golden brown, about 2 minutes, flip over and cook until the bottom is golden brown, 1 to 2 minutes longer. Transfer the pancakes to a platter and keep warm in a 200 degree F oven.                          Serve 6 pancakes per person, top each with some of the bourbon butter. Drizzle with warm maple syrup and dust with confectioners sugar. Garnish with fresh mint sprigs and more toasted pecans, if desired.                          Bourbon Molasses Butter:                          Combine the bourbon and sugar in a small saucepan and cook over high heat until reduced to 3 tablespoons, remove and let cool.                          Put the butter, molasses, salt and cooled bourbon mixture in a food processor and process until smooth. Scrape into a bowl, cover with plastic wrap and refrigerate for at least 1 hour to allow the flavors to meld. Remove from the refrigerator about 30 minutes before using to soften.'
     // }
 
-    if (isLoading) {
+    if (hasError) {
+        return (
+            <View style={styles.container}>
+                <TouchableOpacity style={styles.arrowContainer} onPress={navigateBack}>
+                    <Image style={styles.arrow} source={require('../../../assets/arrow.png')} />
+                </TouchableOpacity>
+
+                <Image style={styles.noRecipeImage} source={require('../../../assets/error.png')} />
+                <Text style={styles.errorText}>
+                    Sorry, we are unable to show this recipe at the moment.
+                    Please try again later.
+                    </Text>
+
+            </View>
+
+        )
+    }
+
+    else if (isLoading) {
         return (
             <View>
                 <Text style={styles.loading}>Loading</Text>
@@ -104,8 +124,8 @@ export default ({ route }) => {
                         <TouchableOpacity style={styles.arrowContainer} onPress={navigateBack}>
                             <Image style={styles.arrow} source={require('../../../assets/arrow.png')} />
                         </TouchableOpacity>
-                        <View style={styles.header}>
 
+                        <View style={styles.header}>
                             <Text style={styles.recipeTitle}>{recipe.title}</Text>
                         </View>
 

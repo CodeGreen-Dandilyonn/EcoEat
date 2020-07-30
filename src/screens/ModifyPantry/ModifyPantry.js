@@ -1,17 +1,28 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View, ScrollView, Image } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import styles from './styles';
-import { firebase } from '../../firebase/config'
+import { firebase } from '../../firebase/config';
+import ingredients from '../../Data/ingredients.json';
+import SearchResult from '../../components/SearchResult/SearchResult';
+import { SwipeListView } from 'react-native-swipe-list-view';
 
 export default (props) => {
 
     const [entityText, setEntityText] = useState('')
     const [entities, setEntities] = useState([])
     const navigation = useNavigation();
+    const [addedIngredients, setAddedIngredients] = useState([]);
 
     const entityRef = firebase.firestore().collection('entities')
     const userID = props.extraData.id
+
+    const submitPressed = () => {
+        props.changeRefresh()
+        navigation.navigate("Home", {
+            ingredients: addedIngredients
+        });
+    }
 
     useEffect(() => {
         entityRef
@@ -21,31 +32,64 @@ export default (props) => {
                 querySnapshot => {
                     const newEntities = []
                     querySnapshot.forEach(doc => {
-                        const entity = doc.data()
-                        entity.id = doc.id
-                        newEntities.push(entity)
+                        const entity = doc.data();
+                        entity.id = doc.id;
+                        newEntities.push(entity);
                     });
-                    setEntities(newEntities)
+                    setEntities(newEntities);
                 },
                 error => {
-                    console.log(error)
+                    console.log(error);
                 }
             )
     }, [])
 
-    const onAddButtonPress = () => {
-        if (entityText && entityText.length > 0) {
+    useEffect(() => {
+        console.log("use effect saved ingredients array pantry")
+        let savedIngredientsArray = [];
+        entityRef
+            .where("authorID", "==", userID)
+            .get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    savedIngredientsArray.push(doc.data().text);
+                    console.log("adding to array = " + doc.data().text)
+                })
+            })
+
+        setAddedIngredients(savedIngredientsArray);
+    }, [])
+
+    const renderEntity = ({ item, index }) => {
+        return (
+            <View style={styles.entityContainer}>
+                {/* <Text style={styles.entityText}>
+                    {index}. {item.text}
+                </Text> */}
+
+                <Text style={styles.entityText}>
+                    {index + 1}.  {item.text}
+                </Text>
+            </View>
+        )
+    }
+
+    // ingredient is a string
+    const resultOnPress = (ingredient) => {
+        if (ingredient && ingredient.length > 0) {
             const timestamp = firebase.firestore.FieldValue.serverTimestamp();
             const data = {
-                text: entityText,
+                text: ingredient,
                 authorID: userID,
                 createdAt: timestamp,
             };
             entityRef
                 .add(data)
                 .then(_doc => {
-                    setEntityText('')
-                    Keyboard.dismiss()
+                    setEntityText('');
+                    Keyboard.dismiss();
+                    console.log("in on press")
+                    setAddedIngredients([...addedIngredients, ingredient]);
                 })
                 .catch((error) => {
                     alert(error)
@@ -53,60 +97,104 @@ export default (props) => {
         }
     }
 
-    const renderEntity = ({ item, index }) => {
-        return (
-            <View style={styles.entityContainer}>
-                <Text style={styles.entityText}>
-                    {index}. {item.text}
-                </Text>
-            </View>
-        )
+    // savedIngredient is a string
+    const deleteIngredient = (savedIngredient) => {
+        entityRef
+            .where("authorID", "==", userID)
+            .where("text", "==", savedIngredient)
+            .get()
+            .then(querySnapshot => {
+                querySnapshot.forEach((doc) => {
+                    let index = addedIngredients.indexOf(doc.data().text);
+                    let newIngredients = addedIngredients.splice(index, 1);
+                    setAddedIngredients(newIngredients);
+                    doc.ref.delete().then(() => {
+                        console.log("Document successfully deleted");
+                    })
+                        .catch((error) => console.log("Error removing document: " + error));
+                })
+            })
+            .catch((error) => {
+                console.log("Error getting documents: " + error);
+            })
     }
 
-    const submitPressed = () => {
-        navigation.navigate("Recipe Details");
+    // savedIngredient is an entity object
+    const renderHiddenItem = ({ item, index }) => {
+        return (
+            <TouchableOpacity style={styles.deleteButton}
+                onPress={() => deleteIngredient(item.text)}>
+                <Text style={styles.deleteText}>Delete</Text>
+            </TouchableOpacity>
+        );
     }
+
+    useEffect(() => {
+        console.log("added ingreients pantry = " + addedIngredients)
+    }, [addedIngredients])
 
     return (
-        <View style={styles.container}>
-            <View style={styles.formContainer}>
-            {/* <TextInput
-             style={styles.inputSearch}
-             placeholder='Search'
-             value={entityText}
-             placeholderTextColor="#A6BCD0"
-             underlineColorAndroid="transparent"
-             autoCapitalize="none"
-            />
-            <TouchableOpacity style={styles.submitBtnSearch} onPress={submitPressed}>
-                <Text style={styles.buttonText}>Search</Text>
-            </TouchableOpacity> */}
-                <TextInput
-                    style={styles.input}
-                    placeholder='Add new entity'
-                    placeholderTextColor="#A6BCD0"
-                    onChangeText={(text) => setEntityText(text)}
-                    value={entityText}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
-                />
-                <TouchableOpacity style={styles.button} onPress={onAddButtonPress}>
-                    <Text style={styles.buttonText}>Add</Text>
-                </TouchableOpacity>
-            </View>
-            {entities && (
-                <View style={styles.listContainer}>
-                    <FlatList
-                        data={entities}
-                        renderItem={renderEntity}
-                        keyExtractor={(item) => item.id}
-                        removeClippedSubviews={true}
-                    />
+        <View>
+            <ScrollView>
+                <View style={styles.container}>
+
+                    {/* search bar */}
+                    <View style={styles.formContainer}>
+                        <Image style={styles.searchIcon} source={require('../../../assets/search.png')} />
+                        <TextInput
+                            style={styles.input}
+                            placeholder='Search for an ingredient'
+                            placeholderTextColor="#A6BCD0"
+                            onChangeText={(text) => setEntityText(text)}
+                            value={entityText}
+                            underlineColorAndroid="transparent"
+                            autoCapitalize="none"
+                        />
+
+                    </View>
+
+                    {/* search results */}
+                    {entityText.length > 0 ?
+                        <View style={styles.searchContainer}>
+                            {ingredients.filter(ingredient => ingredient.ingredient.includes(entityText.toLowerCase().trimEnd())).map((filteredIngredient, index) => (
+                                <SearchResult ingredient={filteredIngredient.ingredient} id={index} resultOnPress={resultOnPress} />
+
+                            ))}
+                        </View>
+                        :
+
+                        <View></View>}
+
+
+                    {/* added ingredients */}
+                    {entities && (
+                        <View style={styles.listContainer}>
+                            {/* <FlatList
+                                data={entities}
+                                renderItem={renderEntity}
+                                keyExtractor={(item) => item.id}
+                                removeClippedSubviews={true}
+                            /> */}
+
+                            <SwipeListView
+                                data={entities}
+                                renderItem={renderEntity}
+                                keyExtractor={(item) => item.id}
+                                renderHiddenItem={renderHiddenItem}
+                                rightOpenValue={-75}
+                            />
+                        </View>
+                    )}
+
+                    <TouchableOpacity style={styles.submitBtn} onPress={submitPressed}>
+                        <Text style={styles.buttonText}>Find Recipes</Text>
+                    </TouchableOpacity>
+
+
                 </View>
-            )}
-            <TouchableOpacity style={styles.submitBtn} onPress={submitPressed}>
-                <Text style={styles.buttonText}>Find Recipes</Text>
-            </TouchableOpacity>
+
+            </ScrollView>
+
 
         </View>
     )

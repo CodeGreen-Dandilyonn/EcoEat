@@ -1,31 +1,42 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+import { Colors } from '../../colors';
+
+const dimensions = Dimensions.get('window');
+const searchWidth = dimensions.width * 0.90;
 
 export default StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center'
+        alignItems: 'center',
     },
     formContainer: {
-        flexDirection: 'row',
-        height: 80,
-        marginTop: 40,
-        marginBottom: 20,
+        height: 60,
+        marginTop: 30,
+        marginBottom: 12,
         flex: 1,
-        paddingTop: 10,
         paddingBottom: 10,
-        paddingLeft: 30,
-        paddingRight: 30,
         justifyContent: 'center',
-        alignItems: 'center'
+        width: searchWidth,
+        flexDirection: 'row'
     },
+    searchIcon: {
+        width: 18,
+        height: 18,
+        position: 'relative',
+        top: 15,
+        left: 8,
+        zIndex: 1
+    },
+
     input: {
         height: 48,
         borderRadius: 5,
         overflow: 'hidden',
         backgroundColor: 'white',
-        paddingLeft: 16,
         flex: 3,
-        marginRight: 5
+        width: searchWidth - 24,
+        paddingStart: 38,
+        marginStart: -18
     },
     // inputSearch: {
     //     height: 48,
@@ -57,7 +68,7 @@ export default StyleSheet.create({
         alignItems: "center",
         justifyContent: 'center'
     },
-    
+
     buttonText: {
         color: 'white',
         fontSize: 16
@@ -69,21 +80,47 @@ export default StyleSheet.create({
         width: 200,
         alignItems: "center",
         justifyContent: 'center',
-        margin: 10
+        marginTop: 35
     },
     listContainer: {
-        marginTop: 20,
-        padding: 20,
-        height: 400
+        marginTop: 12,
+        width: searchWidth,
+        height: 400,
+        borderRadius: 5
     },
     entityContainer: {
-        marginTop: 16,
         borderBottomColor: '#cccccc',
         borderBottomWidth: 1,
-        paddingBottom: 16
+        paddingBottom: 16,
+        paddingTop: 16,
+        paddingStart: 16,
+        backgroundColor: '#FFFFFF'
     },
     entityText: {
         fontSize: 20,
         color: '#333333'
+    },
+    searchContainer: {
+        width: searchWidth,
+        backgroundColor: '#FFFFFF',
+        borderColor: Colors.darkGray,
+        borderTopWidth: 1,
+        borderStartWidth: 1,
+        borderEndWidth: 1
+
+    },
+
+    deleteButton: {
+        alignSelf: 'flex-end',
+        width: 75,
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: Colors.red,
+        marginVertical: 3,
+    },
+
+    deleteText: {
+        color: '#FFFFFF'
     }
 })

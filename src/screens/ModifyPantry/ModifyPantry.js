@@ -18,6 +18,7 @@ export default (props) => {
     const userID = props.extraData.id
 
     const submitPressed = () => {
+        props.changeRefresh()
         navigation.navigate("Home", {
             ingredients: addedIngredients
         });

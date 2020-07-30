@@ -67,6 +67,12 @@ export default function App() {
   const [loading, setLoading] = useState(true)
   const [user, setUser] = useState(null)
   const [onboardingComplete, setOnboardingComplete] = useState(false)
+  const [needRefresh, setNeedRefresh] = useState(false)
+
+  const changeRefresh = () => {
+    console.log("calling for refresh")
+    setNeedRefresh(!needRefresh);
+  }
 
 
   function RecipeStack() {
@@ -74,7 +80,7 @@ export default function App() {
       <HomeStack.Navigator>
         {/* <HomeStack.Screen name="Home" component={Home} /> */}
         <HomeStack.Screen name="Home">
-          {props => <Home {...props} extraData={user} />}
+          {props => <Home {...props} extraData={user} needRefresh={needRefresh} />}
         </HomeStack.Screen>
         <HomeStack.Screen name="Recipe Details" component={RecipeDetails} />
       </HomeStack.Navigator>
@@ -111,7 +117,7 @@ export default function App() {
         {/* <Tab.Screen name="Home" component={RecipeStack} /> */}
         <HomeStack.Screen name="Home" component={RecipeStack} />
         <HomeStack.Screen name="Modify Pantry">
-          {props => <ModifyPantry {...props} extraData={user} />}
+          {props => <ModifyPantry {...props} extraData={user} changeRefresh={changeRefresh} />}
         </HomeStack.Screen>
         <Tab.Screen name="Profile" component={Profile} />
       </Tab.Navigator>

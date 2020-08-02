@@ -156,7 +156,7 @@ export default (props) => {
                     {/* search results */}
                     {entityText.length > 0 ?
                         <View style={styles.searchContainer}>
-                            {ingredients.filter(ingredient => ingredient.ingredient.includes(entityText.toLowerCase().trimEnd())).map((filteredIngredient, index) => (
+                            {ingredients.filter(ingredient => ingredient.ingredient.indexOf(entityText.toLowerCase().trimEnd()) != -1).map((filteredIngredient, index) => (
                                 <SearchResult ingredient={filteredIngredient.ingredient} id={index} resultOnPress={resultOnPress} />
 
                             ))}

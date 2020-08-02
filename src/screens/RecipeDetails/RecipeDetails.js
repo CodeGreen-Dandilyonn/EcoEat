@@ -47,8 +47,10 @@ export default ({ route }) => {
             .where("recipeId", "==", id)
             .get()
             .then(querySnapshot => {
-                setSaved(true);
-                console.log("Recipe already saved")
+                querySnapshot.forEach((doc) => {
+                    setSaved(true);
+                    console.log("Recipe already saved")
+                })
             })
             .catch((error) => {
                 setSaved(false)
@@ -59,15 +61,16 @@ export default ({ route }) => {
     const bookmarkHandler = () => {
         console.log("bookmark pressed")
         if (saved) {
+            console.log("userID = " + userID)
             savedRef
                 .where("user", "==", userID)
                 .where("recipeId", "==", id)
                 .get()
                 .then(querySnapshot => {
                     querySnapshot.forEach((doc) => {
-                        setSaved(false);
                         doc.ref.delete().then(() => {
                             console.log("Saved Recipe successfully deleted");
+                            setSaved(false);
                         })
                             .catch((error) => console.log("Error removing document: " + error));
                     })
@@ -78,6 +81,7 @@ export default ({ route }) => {
         } else {
             const data = {
                 recipeId: id,
+                recipeDetails: recipe,
                 user: userID,
                 collection: "Saved"
             };
@@ -215,10 +219,10 @@ export default ({ route }) => {
                     {/* Bookmark */}
                     <TouchableOpacity style={styles.bookmarkContainer} onPress={bookmarkHandler}>
                         {saved ? (
-                            <Image style={styles.bookmarkIcon} source={require("./bookmark.png")} />
+                            <Image style={styles.bookmarkIcon} source={require('../../../assets/bookmark_filled.png')} />
                         ) : (
                                 // <BookmarkOutline style={styles.bookmarkIcon} />
-                                <Image style={styles.bookmarkIcon} source={require("./bookmark-outline.png")} />
+                                <Image style={styles.bookmarkIcon} source={require('../../../assets/bookmark_outline.png')} />
                             )}
                     </TouchableOpacity>
                 </View>

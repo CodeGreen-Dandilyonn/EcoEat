@@ -9,14 +9,15 @@ import LeafTag from '../LeafTag/LeafTag'
 export default (props) => {
     const navigation = useNavigation();
 
-    const onRecipeClicked = (recipeId) => {
+    const onRecipeClicked = (recipeId, userId) => {
         navigation.navigate("Recipe Details", {
             id: recipeId,
+            userId: userId
         })
     }
 
     return (
-        <TouchableOpacity style={styles.container} onPress={() => onRecipeClicked(props.id)}>
+        <TouchableOpacity style={styles.container} onPress={() => onRecipeClicked(props.id, props.userId)}>
             <Image
                 style={styles.image}
                 source={{

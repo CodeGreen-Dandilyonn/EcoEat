@@ -167,8 +167,8 @@ export default (props) => {
 
     // const APIKEY = '9d6c3108af68425a934d2fab780094ee'
     // const APIKEY = 'ef5e2a0fe78649c68d5f5df5b63ab31f';
-    // const APIKEY = '596a72c90259413f8ee06dda6b928cee';
-    const APIKEY = 'f3edcb690303427c8511a070b39a73de';
+    const APIKEY = '596a72c90259413f8ee06dda6b928cee';
+    // const APIKEY = 'f3edcb690303427c8511a070b39a73de';
 
     const entityRef = firebase.firestore().collection('entities');
     const userID = props.extraData.id;
@@ -234,6 +234,7 @@ export default (props) => {
                 id={item.id}
                 isGreen={true}
                 key={index}
+                userId={userID}
             />
         )
     }

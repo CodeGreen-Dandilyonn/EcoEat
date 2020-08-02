@@ -14,11 +14,14 @@ export default ({ route }) => {
     const id = route.params.id;
     const navigation = useNavigation();
     // const APIKEY = '9d6c3108af68425a934d2fab780094ee'
-    // const APIKEY = 'ef5e2a0fe78649c68d5f5df5b63ab31f';
-    const APIKEY = 'f3edcb690303427c8511a070b39a73de';
+    const APIKEY = 'ef5e2a0fe78649c68d5f5df5b63ab31f';
+    // const APIKEY = 'f3edcb690303427c8511a070b39a73de';
+    const savedRef = firebase.firestore().collection('saved_recipes')
+    const userID = route.params.userId;
     const [isLoading, setIsLoading] = useState(true); // change to true
     const [recipe, setRecipe] = useState(null);
     const [hasError, setHasError] = useState(false);
+    const [saved, setSaved] = useState(false);
 
     const parseIngredients = (recipeIngredients) => {
         let array = [];
@@ -35,6 +38,59 @@ export default ({ route }) => {
     const navigateBack = () => {
         console.log("navigating back");
         navigation.goBack();
+    }
+
+    // retrieve if it is a saved recipe or not
+    useEffect(() => {
+        savedRef
+            .where("user", "==", userID)
+            .where("recipeId", "==", id)
+            .get()
+            .then(querySnapshot => {
+                setSaved(true);
+                console.log("Recipe already saved")
+            })
+            .catch((error) => {
+                setSaved(false)
+                console.log("Not a saved recipe: " + error);
+            })
+    }, [])
+
+    const bookmarkHandler = () => {
+        console.log("bookmark pressed")
+        if (saved) {
+            savedRef
+                .where("user", "==", userID)
+                .where("recipeId", "==", id)
+                .get()
+                .then(querySnapshot => {
+                    querySnapshot.forEach((doc) => {
+                        setSaved(false);
+                        doc.ref.delete().then(() => {
+                            console.log("Saved Recipe successfully deleted");
+                        })
+                            .catch((error) => console.log("Error removing document: " + error));
+                    })
+                })
+                .catch((error) => {
+                    console.log("Error getting saved recipe: " + error);
+                })
+        } else {
+            const data = {
+                recipeId: id,
+                user: userID,
+                collection: "Saved"
+            };
+            savedRef
+                .add(data)
+                .then(_doc => {
+                    setSaved(true)
+                })
+                .catch((error) => {
+                    console.log("Error saving recipe: " + error);
+                    alert(error)
+                });
+        }
     }
 
     useEffect(() => {
@@ -153,11 +209,26 @@ export default ({ route }) => {
                         </View>
                     )}
 
-                {/* ingredients */}
-                <Text style={styles.sectionTitle}>Ingredients</Text>
+                <View style={styles.row}>
+                    {/* ingredients */}
+                    <Text style={styles.sectionTitle}>Ingredients</Text>
+                    {/* Bookmark */}
+                    <TouchableOpacity style={styles.bookmarkContainer} onPress={bookmarkHandler}>
+                        {saved ? (
+                            <Image style={styles.bookmarkIcon} source={require("./bookmark.png")} />
+                        ) : (
+                                // <BookmarkOutline style={styles.bookmarkIcon} />
+                                <Image style={styles.bookmarkIcon} source={require("./bookmark-outline.png")} />
+                            )}
+                    </TouchableOpacity>
+                </View>
+
                 <View style={styles.ingredientsTimeContainer}>
                     <RecipeIngredients ingredients={recipe.ingredients} />
                     <RecipeDetailIcons readyInMin={recipe.readyInMin} pricePerServing={recipe.pricePerServing} />
+
+
+
                 </View>
 
                 {/* instructions */}

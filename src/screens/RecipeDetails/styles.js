@@ -150,6 +150,17 @@ export default StyleSheet.create({
         marginTop: 20,
         alignSelf: 'center',
         marginTop: dimensions.height / 6,
+    },
+    row: {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    bookmarkContainer: {
+        marginHorizontal: 30
+    },
+    bookmarkIcon: {
+        width: 30,
+        height: 30
     }
 
 })

@@ -47,7 +47,10 @@ export default ({ route }) => {
             .where("recipeId", "==", id)
             .get()
             .then(querySnapshot => {
-                setSaved(true);
+                querySnapshot.forEach(doc => {
+                    setSaved(true);
+                });
+
                 console.log("Recipe already saved")
             })
             .catch((error) => {

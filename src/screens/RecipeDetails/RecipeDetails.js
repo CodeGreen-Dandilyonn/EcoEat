@@ -9,7 +9,7 @@ import RecipeInstructions from '../../components/RecipeInstructions/RecipeInstru
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import LeafTag from '../../components/LeafTag/LeafTag';
 
-export default ({ route }) => {
+export default ({ route, changeRefresh }) => {
 
     const id = route.params.id;
     const navigation = useNavigation();
@@ -37,6 +37,7 @@ export default ({ route }) => {
 
     const navigateBack = () => {
         console.log("navigating back");
+        changeRefresh();
         navigation.goBack();
     }
 
@@ -106,7 +107,7 @@ export default ({ route }) => {
                     setRecipe({
                         id: id,
                         title: resJson.title,
-                        imageUrl: resJson.image,
+                        image: resJson.image,
                         sourceUrl: resJson.sourceUrl,
                         servings: resJson.servings,
                         readyInMin: resJson.readyInMinutes,
@@ -137,7 +138,7 @@ export default ({ route }) => {
     // const recipe = {
     //     id: 324694,
     //     title: 'Vegan Buckwheat Pancakes',
-    //     imageUrl: 'https://images.unsplash.com/photo-1565299543923-37dd37887442?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=828&q=80',
+    //     image: 'https://images.unsplash.com/photo-1565299543923-37dd37887442?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=828&q=80',
     //     sourceUrl: 'http://www.foodnetwork.com/recipes/bobby-flay/silver-dollar-buttermilk-pecan-pancakes-with-bourbon-molasses-butter-and-maple-syrup.html',
     //     servings: 6,
     //     ingredients: ['1 tsp baking powder', '1 tbsp butter', '2 cups flour', '1/2 cup sugar', '1 cup pecans', '3/4 cup buttermilk', '3 tbsp maple syrup', '1 tsp salt', '2 eggs'],
@@ -204,8 +205,8 @@ export default ({ route }) => {
                     )}
 
                 {/* image */}
-                {recipe.imageUrl ? (
-                    <Image style={styles.recipeImage} source={{ uri: recipe.imageUrl }} />
+                {recipe.image ? (
+                    <Image style={styles.recipeImage} source={{ uri: recipe.image }} />
 
                 ) : (
                         <View style={styles.noImageContainer}>

@@ -48,18 +48,10 @@ export default ({ route, changeRefresh }) => {
             .where("recipeId", "==", id)
             .get()
             .then(querySnapshot => {
-<<<<<<< HEAD
-                querySnapshot.forEach(doc => {
-                    setSaved(true);
-                });
-
-                console.log("Recipe already saved")
-=======
                 querySnapshot.forEach((doc) => {
                     setSaved(true);
                     console.log("Recipe already saved")
                 })
->>>>>>> master
             })
             .catch((error) => {
                 setSaved(false)

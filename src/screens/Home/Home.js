@@ -3,8 +3,8 @@ import { FlatList, Text, View, Image } from 'react-native'
 import styles from './styles';
 import { firebase } from '../../firebase/config'
 import { Colors } from '../../colors'
-
 import RecipeCard from '../../components/RecipeCard/RecipeCard'
+import { TabView, TabBar, SceneMap, NavigationState, SceneRendererProps, } from 'react-native-tab-view';
 
 // const entities = [
 //     {

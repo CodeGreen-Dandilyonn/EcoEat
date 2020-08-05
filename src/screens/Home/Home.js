@@ -227,16 +227,27 @@ export default (props) => {
     }
 
     // show recommended recipes
-    else {
-        return (
-            <View style={styles.container}>
-                <View style={styles.listContainer}>
-                    <FlatList
+    /*
+    <FlatList
                         data={recipes}
                         renderItem={renderRecipe}
                         keyExtractor={(item, index) => item.id + ""}
                         removeClippedSubviews={true}
                     />
+    */
+    else {
+        return (
+            <View style={styles.container}>
+                <View style={styles.listContainer}>
+                    
+                    <View style={styles.listContainer}>
+                    <TabView
+                    navigationState={this.state}
+                    renderScene={this.renderScene}
+                    renderTabBar={this.renderTabBar}
+                    onIndexChange={this.handleIndexChange}
+                    />
+                </View>
                 </View>
             </View>
         )

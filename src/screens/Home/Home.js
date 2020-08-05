@@ -187,45 +187,70 @@ export default (props) => {
     }, [needRefresh])
 
     useEffect(() => {
-
-        // return user's ingredients from firebase
-        const getIngredients = async () => {
-            console.log("use effect saved ingredients array home")
-            let savedIngredientsArray = [];
-            return await entityRef
-                .where("authorID", "==", userID)
-                .get()
-                .then((querySnapshot) => {
-                    querySnapshot.forEach((doc) => {
-                        savedIngredientsArray.push(doc.data().text);
-                        console.log("adding to array = " + doc.data().text)
-                    })
-                })
-                .then(() => console.log("saved ingredients array = " + savedIngredientsArray))
-                .then(() => setSavedIngredients(savedIngredientsArray))
-                .then(() => {
-                    return savedIngredientsArray;
-                })
+        if (collection != "Recommendations") {
+            savedRef
+                .where("user", "==", userID)
+                .where("collectionName", "==", collection)
+                .orderBy('createdAt', 'desc')
+                .onSnapshot(
+                    querySnapshot => {
+                        console.log("Got saved recipes")
+                        const newRecipes = []
+                        querySnapshot.forEach(doc => {
+                            const recipe = doc.data();
+                            recipe.id = doc.recipeId;
+                            newRecipes.push(recipe);
+                        });
+                        setRecipes(newRecipes);
+                        setIsLoading(false);
+                    },
+                    error => {
+                        console.log("Error retrieving saved recipes: " + error);
+                    }
+                )
         }
+    }, [])
 
-        // get recipe recommendations based on ingredients
-        const getRecommendations = async (ingredients) => {
-            setIsLoading(false)
-            await fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients.toString()}&number=${numResults}&apiKey=${APIKEY}`)
-                .then((res) => res.json())
-                .then((resJson) => {
-                    setRecipes(resJson);
-                    console.log('recipes = ' + resJson)
-                })
-                .then(() => setIsLoading(false))
-                .catch((error) => {
-                    console.log('error fetching recipe recommendations = ' + error);
-                    setIsLoading(true);
-                });
-        };
+    useEffect(() => {
+        if (collection == "Recommendations") {
+            // return user's ingredients from firebase
+            const getIngredients = async () => {
+                console.log("use effect saved ingredients array home")
+                let savedIngredientsArray = [];
+                return await entityRef
+                    .where("authorID", "==", userID)
+                    .get()
+                    .then((querySnapshot) => {
+                        querySnapshot.forEach((doc) => {
+                            savedIngredientsArray.push(doc.data().text);
+                            console.log("adding to array = " + doc.data().text)
+                        })
+                    })
+                    .then(() => console.log("saved ingredients array = " + savedIngredientsArray))
+                    .then(() => setSavedIngredients(savedIngredientsArray))
+                    .then(() => {
+                        return savedIngredientsArray;
+                    })
+            }
 
-        getIngredients().then((ingredients) => getRecommendations(ingredients));
+            // get recipe recommendations based on ingredients
+            const getRecommendations = async (ingredients) => {
+                setIsLoading(false)
+                await fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients.toString()}&number=${numResults}&apiKey=${APIKEY}`)
+                    .then((res) => res.json())
+                    .then((resJson) => {
+                        setRecipes(resJson);
+                        console.log('recipes = ' + resJson)
+                    })
+                    .then(() => setIsLoading(false))
+                    .catch((error) => {
+                        console.log('error fetching recipe recommendations = ' + error);
+                        setIsLoading(true);
+                    });
+            };
 
+            getIngredients().then((ingredients) => getRecommendations(ingredients));
+        }
     }, [])
 
     useEffect(() => {

@@ -179,7 +179,7 @@ export default (props) => {
     const [isLoading, setIsLoading] = useState(true);
     const [savedIngredients, setSavedIngredients] = useState([]);
     const [needRefresh, setNeedRefresh] = useState(props.needRefresh);
-    const [currCollection, setCurrCollection] = useState('recommendations');
+    const [currCollection, setCurrCollection] = useState('Recommendations');
     const [savedRecipes, setSavedRecipes] = useState([]);
 
     useEffect(() => {
@@ -187,10 +187,10 @@ export default (props) => {
     }, [needRefresh])
 
     useEffect(() => {
-        if (collection != "Recommendations") {
+        if (currCollection != "Recommendations") {
             savedRef
                 .where("user", "==", userID)
-                .where("collectionName", "==", collection)
+                .where("collectionName", "==", currCollection)
                 .orderBy('createdAt', 'desc')
                 .onSnapshot(
                     querySnapshot => {
@@ -212,7 +212,7 @@ export default (props) => {
     }, [])
 
     useEffect(() => {
-        if (collection == "Recommendations") {
+        if (currCollection == "Recommendations") {
             // return user's ingredients from firebase
             const getIngredients = async () => {
                 console.log("use effect saved ingredients array home")

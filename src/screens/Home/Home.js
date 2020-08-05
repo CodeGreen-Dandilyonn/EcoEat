@@ -12,6 +12,11 @@ import Vegan from './tabs/vegan';
 import Vegetarian from './tabs/vegetarian';
 
 
+type State = NavigationState<{
+    key: string;
+    title: string;
+  }>;
+
 export default (props) => {
 
     // const APIKEY = '9d6c3108af68425a934d2fab780094ee'
@@ -31,12 +36,13 @@ export default (props) => {
     const [currCollection, setCurrCollection] = useState('recommendations');
     const [savedRecipes, setSavedRecipes] = useState([]);
 
+    
 
 
     state = {
         index: 1,
         routes: [
-          { key: 'saved_recipe_tab', title: 'Saved Recipes' },
+          { key: 'savedRecipeTab', title: 'Saved Recipes' },
           { key: 'vegetarian', title: 'Vegetarian' },
           { key: 'american', title: 'American' },
           { key: 'vegan', title: 'Vegan' },

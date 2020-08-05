@@ -48,5 +48,13 @@ export default StyleSheet.create({
         height: 160,
         marginBottom: 20,
         marginTop: 20,
+    },
+
+    noSavedImage: {
+        width: 130,
+        height: 184,
+        marginBottom: 20,
+        marginTop: 0
+
     }
 });

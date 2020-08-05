@@ -90,7 +90,10 @@ export default function App() {
         <HomeStack.Screen name="Home">
           {props => <Home {...props} extraData={user} needRefresh={needRefresh} />}
         </HomeStack.Screen>
-        <HomeStack.Screen name="Recipe Details" component={RecipeDetails} />
+        <HomeStack.Screen name="Recipe Details">
+          {props => <RecipeDetails {...props} extraData={user} changeRefresh={changeRefresh} />}
+        </HomeStack.Screen>
+        {/* <HomeStack.Screen name="Recipe Details" component={RecipeDetails} /> */}
       </HomeStack.Navigator>
     )
 

@@ -6,6 +6,7 @@ import { firebase } from '../../firebase/config';
 import ingredients from '../../Data/ingredients.json';
 import SearchResult from '../../components/SearchResult/SearchResult';
 import { SwipeListView } from 'react-native-swipe-list-view';
+import IngredientSearchResults from '../../components/IngredientSearchResults/IngredientSearchResults'
 
 export default (props) => {
 
@@ -13,6 +14,8 @@ export default (props) => {
     const [entities, setEntities] = useState([])
     const navigation = useNavigation();
     const [addedIngredients, setAddedIngredients] = useState([]);
+    const [filteredIngredients, setFilteredIngredients] = useState([]);
+    const [showResults, setShowResults] = useState(false)
 
     const entityRef = firebase.firestore().collection('entities')
     const userID = props.extraData.id
@@ -76,6 +79,8 @@ export default (props) => {
 
     // ingredient is a string
     const resultOnPress = (ingredient) => {
+        setShowResults(false);
+        setEntityText('');
         if (ingredient && ingredient.length > 0) {
             const timestamp = firebase.firestore.FieldValue.serverTimestamp();
             const data = {
@@ -86,9 +91,7 @@ export default (props) => {
             entityRef
                 .add(data)
                 .then(_doc => {
-                    setEntityText('');
                     Keyboard.dismiss();
-                    console.log("in on press")
                     setAddedIngredients([...addedIngredients, ingredient]);
                 })
                 .catch((error) => {
@@ -129,9 +132,18 @@ export default (props) => {
         );
     }
 
-    useEffect(() => {
-        console.log("added ingreients pantry = " + addedIngredients)
-    }, [addedIngredients])
+    const handleSearch = () => {
+        let results = [];
+        for (let ingredient of ingredients) {
+            if (ingredient.ingredient.indexOf(entityText.toLowerCase().trimEnd()) != -1) {
+                results.push(ingredient);
+            }
+        }
+
+        setFilteredIngredients(results);
+        setShowResults(true)
+
+    }
 
     return (
         <View>
@@ -145,21 +157,24 @@ export default (props) => {
                             style={styles.input}
                             placeholder='Search for an ingredient'
                             placeholderTextColor="#A6BCD0"
-                            onChangeText={(text) => setEntityText(text)}
+                            onChangeText={(text) => {
+                                setEntityText(text)
+                                setShowResults(false)
+                            }
+                            }
                             value={entityText}
                             underlineColorAndroid="transparent"
                             autoCapitalize="none"
+                            returnKeyType='search'
+                            onSubmitEditing={handleSearch}
                         />
 
                     </View>
 
                     {/* search results */}
-                    {entityText.length > 0 ?
+                    {showResults ?
                         <View style={styles.searchContainer}>
-                            {ingredients.filter(ingredient => ingredient.ingredient.indexOf(entityText.toLowerCase().trimEnd()) != -1).map((filteredIngredient, index) => (
-                                <SearchResult ingredient={filteredIngredient.ingredient} id={index} resultOnPress={resultOnPress} />
-
-                            ))}
+                            <IngredientSearchResults ingredients={filteredIngredients} resultOnPress={resultOnPress} />
                         </View>
                         :
 

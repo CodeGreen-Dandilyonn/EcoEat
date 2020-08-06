@@ -122,5 +122,13 @@ export default StyleSheet.create({
 
     deleteText: {
         color: '#FFFFFF'
-    }
+    },
+
+    loading: {
+        textAlign: 'center',
+        fontSize: 24,
+        color: Colors.darkGray,
+        fontWeight: '400',
+        marginTop: 80
+    },
 })

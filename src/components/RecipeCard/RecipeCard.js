@@ -4,8 +4,6 @@ import { useNavigation } from '@react-navigation/native';
 import styles from './styles';
 import { firebase } from '../../firebase/config'
 
-import LeafTag from '../LeafTag/LeafTag'
-
 export default (props) => {
     const navigation = useNavigation();
 

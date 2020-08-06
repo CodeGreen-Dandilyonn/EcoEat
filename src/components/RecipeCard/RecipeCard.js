@@ -4,8 +4,6 @@ import { useNavigation } from '@react-navigation/native';
 import styles from './styles';
 import { firebase } from '../../firebase/config'
 
-import LeafTag from '../LeafTag/LeafTag'
-
 export default (props) => {
     const navigation = useNavigation();
 
@@ -28,12 +26,8 @@ export default (props) => {
             <View style={styles.textContainer}>
                 <View style={styles.titleLine}>
                     <Text style={styles.name}>{props.name}</Text>
-                    {props.isGreen && <LeafTag styles={styles.leafTag} />}
-
                 </View>
 
-
-                <Text style={styles.description}>{props.description}</Text>
             </View>
         </TouchableOpacity>
     )

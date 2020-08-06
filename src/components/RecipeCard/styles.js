@@ -12,10 +12,12 @@ export default StyleSheet.create({
         backgroundColor: Colors.lightGray,
         borderRadius: 5,
         marginHorizontal: 30,
-        marginVertical: 10
+        marginVertical: 10,
     },
     textContainer: {
-        padding: 30
+        paddingTop: 18,
+        paddingBottom: 12,
+        paddingStart: 15
     },
     name: {
         fontSize: 18,
@@ -24,7 +26,7 @@ export default StyleSheet.create({
     },
     titleLine: {
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'center'
     },
     leafTag: {
         marginLeft: 10

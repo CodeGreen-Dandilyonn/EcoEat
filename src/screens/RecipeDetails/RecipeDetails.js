@@ -13,8 +13,8 @@ export default ({ route, changeRefresh }) => {
 
     const id = route.params.id;
     const navigation = useNavigation();
-    // const APIKEY = '9d6c3108af68425a934d2fab780094ee'
-    const APIKEY = 'ef5e2a0fe78649c68d5f5df5b63ab31f';
+    const APIKEY = '9d6c3108af68425a934d2fab780094ee'
+    // const APIKEY = 'ef5e2a0fe78649c68d5f5df5b63ab31f';
     // const APIKEY = 'f3edcb690303427c8511a070b39a73de';
     const savedRef = firebase.firestore().collection('saved_recipes')
     const userID = route.params.userId;
@@ -48,6 +48,7 @@ export default ({ route, changeRefresh }) => {
             .where("recipeId", "==", id)
             .get()
             .then(querySnapshot => {
+                console.log("checking if saved");
                 querySnapshot.forEach((doc) => {
                     setSaved(true);
                     console.log("Recipe already saved")
@@ -57,6 +58,7 @@ export default ({ route, changeRefresh }) => {
                 setSaved(false)
                 console.log("Not a saved recipe: " + error);
             })
+
     }, [])
 
     const bookmarkHandler = () => {

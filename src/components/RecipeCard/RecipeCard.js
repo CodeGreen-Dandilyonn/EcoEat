@@ -28,12 +28,8 @@ export default (props) => {
             <View style={styles.textContainer}>
                 <View style={styles.titleLine}>
                     <Text style={styles.name}>{props.name}</Text>
-                    {props.isGreen && <LeafTag styles={styles.leafTag} />}
-
                 </View>
 
-
-                <Text style={styles.description}>{props.description}</Text>
             </View>
         </TouchableOpacity>
     )

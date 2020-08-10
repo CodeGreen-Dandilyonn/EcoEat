@@ -131,7 +131,7 @@ export default function App() {
           {props => <ModifyPantry {...props} extraData={user} changeRefresh={changeRefresh} />}
         </HomeStack.Screen>
         <Tab.Screen name="Profile">
-          {props => <Profile {...props} signout={signout} />}
+          {props => <Profile {...props} signout={signout} extraData={user} />}
         </Tab.Screen>
       </Tab.Navigator>
     )

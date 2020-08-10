@@ -8,6 +8,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
+        backgroundColor: '#F6F6F6'
     },
     formContainer: {
         height: 60,

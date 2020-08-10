@@ -13,7 +13,7 @@ export default StyleSheet.create({
     // Title and image
     container: {
         flex: 1,
-        backgroundColor: '#FFFFFF'
+        backgroundColor: '#F6F6F6'
     },
 
     header: {

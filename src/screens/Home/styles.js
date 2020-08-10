@@ -10,8 +10,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        backgroundColor: 'white',
-
+        backgroundColor: '#F6F6F6'
     },
 
     loading: {

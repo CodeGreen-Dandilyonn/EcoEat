@@ -15,6 +15,30 @@ Runs the app in the development mode through Expo, a React Native framework.<br 
 Running any of the commands above opens up Expo Developer Tools. Scan the QR code that appears to 
 build the project on your device.
 
+Step 1 : Download Expo Client App 
+
+Step 2 : Open Camera Application and scan QR Code 
+
 #### Viewing App on Android Device
 Running any of the commands above opens up Expo Developer Tools. 
-JANAVI INSERT INFO ABOUT ANDROID SIMULATOR HERE
+
+Step 1: Download Expo client app 
+
+Step 2: Navigate to Expo app and scan QR Code from Expo Developer Tools 
+
+#### Viewing App on Android Emulator 
+Running any of the commands above opens up Expo Developer Tools. 
+
+Step 1 : Navigate to Android Studio and start emulator from AVD Manager
+
+Step 2 : Download Repo and unzip file
+
+Step 3 : Open command prompt and navigate to downloaded repo
+
+Step 4 : Run line "expo start" in command prompt
+
+Step 5 : Once Expo Developer Tools opens select option "run on Android Emulator"
+
+
+
+

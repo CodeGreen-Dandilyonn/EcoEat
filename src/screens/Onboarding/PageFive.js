@@ -29,7 +29,7 @@ export default (props) => {
         <View style={styles.container}>
             <Image
                 style={styles.image}
-                source={require("./images/pagefive.png")}
+                source={require("./images/pagetutorial.png")}
                 resizeMode={'cover'}
             />
             <TouchableOpacity onPress={finishOnboarding} style={styles.button}>

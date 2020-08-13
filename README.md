@@ -1,4 +1,4 @@
-# EcoEats
+# EcoEat
 
 A mobile recipe app empowering users to reduce food waste and engage with food sustainability.
 

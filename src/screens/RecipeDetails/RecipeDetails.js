@@ -208,7 +208,7 @@ export default ({ route, changeRefresh }) => {
                             <Image style={styles.bookmarkIcon} source={require('../../../assets/bookmark_filled.png')} />
                         ) : (
                                 // <BookmarkOutline style={styles.bookmarkIcon} />
-                                <Image style={styles.bookmarkIcon} source={require('../../../assets/bookmark_outline.png')} />
+                                <Image style={styles.bookmarkIcon} source={require('../../../assets/bookmark_outlined.png')} />
                             )}
                     </TouchableOpacity>
                 </View>

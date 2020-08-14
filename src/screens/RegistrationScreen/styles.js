@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { Colors } from '../../colors'
 
 export default StyleSheet.create({
     container: {
@@ -29,7 +30,7 @@ export default StyleSheet.create({
         paddingLeft: 16
     },
     button: {
-        backgroundColor: '#7BED8D',
+        backgroundColor: Colors.brightGreen,
         marginLeft: 30,
         marginRight: 30,
         marginTop: 20,

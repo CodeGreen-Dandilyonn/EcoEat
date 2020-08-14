@@ -179,7 +179,7 @@ export default (props) => {
         if (savedRecipes.length == 0) {
             return (
                 <View style={styles.errorContainer}>
-                    <Image style={styles.noSavedImage} source={require('../../../assets/bookmark_outline.png')} />
+                    <Image style={styles.noSavedImage} source={require('../../../assets/bookmark_outlined.png')} />
                     <Text style={styles.errorText}>
                         You currently don't have any saved recipes. Select a recipe from your recommendations, and
                         hit the bookmark to see it later here!

@@ -156,11 +156,11 @@ export default StyleSheet.create({
         justifyContent: 'space-between'
     },
     bookmarkContainer: {
-        marginHorizontal: 30
+        marginHorizontal: 30,
     },
     bookmarkIcon: {
-        width: 30,
-        height: 30
+        width: 20,
+        height: 30,
     }
 
 })

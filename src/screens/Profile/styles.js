@@ -23,7 +23,7 @@ export default StyleSheet.create({
     // al: "flex-end",
     alignItems: "center",
     justifyContent: 'center',
-    margin: 0
+    margin: 30
   },
   helpBtn: {
     alignItems: 'flex-end',
@@ -113,12 +113,14 @@ export default StyleSheet.create({
   },
   counter: {
     margin: 30,
-    backgroundColor: Colors.brightGreen,
+    marginBottom: 0,
+    borderWidth: 2,
+    borderColor: Colors.brightGreen,
     padding: 20,
-    borderRadius: 5
+    borderRadius: 5,
   },
   counterText: {
-    color: Colors.white,
+    color: Colors.darkGray,
     fontSize: 20
   }
 });

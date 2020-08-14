@@ -13,6 +13,7 @@ import PageTwo from './src/screens/Onboarding/PageTwo'
 import PageThree from './src/screens/Onboarding/PageThree'
 import PageFour from './src/screens/Onboarding/PageFour'
 import PageFive from './src/screens/Onboarding/PageFive'
+import ActionBarImage from './assets/icon.png'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { decode, encode } from 'base-64'
 import { firebase } from './src/firebase/config'
@@ -123,18 +124,19 @@ export default function App() {
         tabBarOptions={{
           activeTintColor: "#7BED8D",
           inactiveTintColor: '#748A9D',
-          showLabel: false
+          showLabel: false,
         }}
+        initialRouteName="Modify Pantry"
       >
 
-        <HomeStack.Screen name="Home" component={RecipeStack} />
-        <HomeStack.Screen name="Modify Pantry">
+        <Tab.Screen name="Home" component={RecipeStack} />
+        <Tab.Screen name="Modify Pantry">
           {props => <ModifyPantry {...props} extraData={user} changeRefresh={changeRefresh} />}
-        </HomeStack.Screen>
+        </Tab.Screen>
         <Tab.Screen name="Profile">
           {props => <Profile {...props} signout={signout} extraData={user} />}
         </Tab.Screen>
-      </Tab.Navigator>
+      </Tab.Navigator >
     )
   }
 

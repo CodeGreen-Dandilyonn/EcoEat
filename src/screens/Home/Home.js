@@ -6,11 +6,12 @@ import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { useNavigation } from '@react-navigation/native';
 import RecipeCard from '../../components/RecipeCard/RecipeCard';
 import { Ionicons } from "@expo/vector-icons";
+import { Colors } from '../../colors';
 
 export default (props) => {
 
-    const APIKEY = '9d6c3108af68425a934d2fab780094ee'
-    // const APIKEY = 'ef5e2a0fe78649c68d5f5df5b63ab31f';
+    // const APIKEY = '9d6c3108af68425a934d2fab780094ee'
+    const APIKEY = 'ef5e2a0fe78649c68d5f5df5b63ab31f';
     // const APIKEY = '596a72c90259413f8ee06dda6b928cee';
     // const APIKEY = 'f3edcb690303427c8511a070b39a73de';
 
@@ -218,7 +219,7 @@ export default (props) => {
             <TabBar
                 {...props}
                 indicatorStyle={{ backgroundColor: 'white' }}
-                style={{ backgroundColor: '#68D379' }}
+                style={{ backgroundColor: Colors.brightGreen }}
             />
         )
     }

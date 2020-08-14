@@ -17,6 +17,7 @@ import ActionBarImage from './assets/icon.png'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { decode, encode } from 'base-64'
 import { firebase } from './src/firebase/config'
+import { Colors } from './src/colors';
 
 if (!global.btoa) { global.btoa = encode }
 if (!global.atob) { global.atob = decode }
@@ -70,7 +71,8 @@ export default function App() {
   const [user, setUser] = useState(null)
   const [onboardingComplete, setOnboardingComplete] = useState(false)
   const [needRefresh, setNeedRefresh] = useState(false)
-  // console.disableYellowBox(true);
+  console.disableYellowBox = true;
+
   const changeRefresh = () => {
     console.log("calling for refresh")
     setNeedRefresh(!needRefresh);
@@ -122,8 +124,8 @@ export default function App() {
           },
         })}
         tabBarOptions={{
-          activeTintColor: "#7BED8D",
-          inactiveTintColor: '#748A9D',
+          activeTintColor: Colors.brightGreen,
+          inactiveTintColor: Colors.darkGray,
           showLabel: false,
         }}
         initialRouteName="Modify Pantry"

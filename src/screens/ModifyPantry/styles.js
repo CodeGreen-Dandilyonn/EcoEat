@@ -79,7 +79,7 @@ export default StyleSheet.create({
     submitBtn: {
         height: 47,
         borderRadius: 5,
-        backgroundColor: '#7BED8D',
+        backgroundColor: Colors.brightGreen,
         width: 200,
         alignItems: "center",
         justifyContent: 'center',

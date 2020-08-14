@@ -68,7 +68,7 @@ export default StyleSheet.create({
         textAlign: 'center',
         color: Colors.darkGray,
         width: imageWidth - 60,
-        marginTop: -10
+        // marginTop: -10
     },
 
     recipeImage: {

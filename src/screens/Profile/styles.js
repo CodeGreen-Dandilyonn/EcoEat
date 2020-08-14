@@ -118,9 +118,21 @@ export default StyleSheet.create({
     borderColor: Colors.brightGreen,
     padding: 20,
     borderRadius: 5,
+
+  },
+  counterBasic: {
+    flexDirection: "row",
+    width: containerWidth
   },
   counterText: {
     color: Colors.darkGray,
-    fontSize: 20
+    fontSize: 15,
+    marginLeft: 10
+  },
+  extraInfo: {
+    color: Colors.darkGray,
+    margin: 10,
+    marginBottom: 0,
+    fontSize: 10
   }
 });

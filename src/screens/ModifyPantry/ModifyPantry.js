@@ -7,6 +7,7 @@ import ingredients from '../../Data/ingredients.json';
 import SearchResult from '../../components/SearchResult/SearchResult';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import IngredientSearchResults from '../../components/IngredientSearchResults/IngredientSearchResults'
+import { Ionicons } from "@expo/vector-icons";
 
 export default (props) => {
 
@@ -178,32 +179,44 @@ export default (props) => {
                         </View>
                         :
 
-                        <View></View>}
+                        <></>}
 
 
                     {/* added ingredients */}
-                    {entities && (
-                        <View style={styles.listContainer}>
-                            {/* <FlatList
+                    {entities.length > 0 ? (
+                        <>
+                            <View style={styles.listContainer}>
+                                {/* <FlatList
                                 data={entities}
                                 renderItem={renderEntity}
                                 keyExtractor={(item) => item.id}
                                 removeClippedSubviews={true}
                             /> */}
 
-                            <SwipeListView
-                                data={entities}
-                                renderItem={renderEntity}
-                                keyExtractor={(item) => item.id}
-                                renderHiddenItem={renderHiddenItem}
-                                rightOpenValue={-75}
-                            />
-                        </View>
-                    )}
+                                <SwipeListView
+                                    data={entities}
+                                    renderItem={renderEntity}
+                                    keyExtractor={(item) => item.id}
+                                    renderHiddenItem={renderHiddenItem}
+                                    rightOpenValue={-75}
+                                />
+                            </View>
+                            <TouchableOpacity style={styles.submitBtn} onPress={submitPressed}>
+                                <Text style={styles.buttonText}>Find Recipes</Text>
+                            </TouchableOpacity>
+                        </>
+                    ) : (
+                            <View style={styles.errorContainer}>
+                                <Ionicons name="ios-arrow-dropup" size={30} style={styles.arrow} />
+                                <Image style={styles.noIngredientsImage} source={require('../../../assets/ingredients.png')} />
+                                <Text style={styles.errorText}>
+                                    To help you use up the ingredients you already have on hand,
+                                    input your ingredients to get recommended recipes!
+                            </Text>
+                            </View>
+                        )}
 
-                    <TouchableOpacity style={styles.submitBtn} onPress={submitPressed}>
-                        <Text style={styles.buttonText}>Find Recipes</Text>
-                    </TouchableOpacity>
+
 
 
                 </View>

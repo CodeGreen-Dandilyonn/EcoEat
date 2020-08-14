@@ -86,7 +86,8 @@ export default ({ route, changeRefresh }) => {
                 recipeId: id,
                 recipeDetails: recipe,
                 user: userID,
-                collection: "Saved"
+                collection: "Saved",
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
             };
             savedRef
                 .add(data)

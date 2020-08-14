@@ -6,12 +6,14 @@ import styles from './styles';
 import { firebase } from '../../firebase/config'
 import { Colors } from '../../colors'
 import { ScrollView } from 'react-native-gesture-handler';
+import LeafTag from '../../components/LeafTag/LeafTag';
 
 const savedRef = firebase.firestore().collection('saved_recipes');
 
 export default (props) => {
   const navigation = useNavigation();
   const [counter, setCounter] = useState(0);
+  const [showInfo, setShowInfo] = useState(false);
 
   // const submitPressed = () => { //TODO: not working
   //     navigation.navigate('Login')
@@ -86,7 +88,7 @@ export default (props) => {
 
       <View style={styles.infoContainer}>
         <TouchableOpacity style={styles.helpBtn} onPress={help}>
-          <Ionicons name="ios-help-circle-outline" size={30} color={Colors.darkGray} />
+          <Ionicons name="ios-information-circle" size={30} color={Colors.darkGray} />
         </TouchableOpacity>
         <Image style={styles.icon} source={require('../../../assets/user_profile.png')} />
 
@@ -99,7 +101,18 @@ export default (props) => {
       </View>
       {counter > 0 ?
         <View style={styles.counter}>
-          <Text style={styles.counterText}>Congratulations! You've saved {counter} sustainable recipes, which is saving around {counter * 500} gallons of water.</Text>
+          <View style={styles.counterBasic}>
+            <LeafTag />
+            <Text style={styles.counterText}>Congratulations! You've saved {counter} sustainable recipes, which is saving around {counter * 500} gallons of water</Text>
+            <TouchableOpacity style={styles.question} onPress={() => setShowInfo(!showInfo)}>
+              <Ionicons name="ios-help-circle-outline" size={20} color={Colors.darkGray} />
+            </TouchableOpacity>
+
+          </View>
+          {showInfo ?
+            <Text style={styles.extraInfo}>* Based on statistics equating the production of 0.5-1.0 lb of beef to 500 gallons of water</Text> :
+            <></>
+          }
         </View> :
         <></>
 

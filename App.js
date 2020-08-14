@@ -70,7 +70,7 @@ export default function App() {
   const [user, setUser] = useState(null)
   const [onboardingComplete, setOnboardingComplete] = useState(false)
   const [needRefresh, setNeedRefresh] = useState(false)
-
+  // console.disableYellowBox(true);
   const changeRefresh = () => {
     console.log("calling for refresh")
     setNeedRefresh(!needRefresh);

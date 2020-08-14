@@ -3,6 +3,7 @@ import { FlatList, Text, View, Image, Dimensions } from 'react-native';
 import styles from './styles';
 import { firebase } from '../../firebase/config';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import { useNavigation } from '@react-navigation/native';
 import RecipeCard from '../../components/RecipeCard/RecipeCard';
 import { Ionicons } from "@expo/vector-icons";
 
@@ -17,6 +18,7 @@ export default (props) => {
     const savedRef = firebase.firestore().collection('saved_recipes');
     const userID = props.extraData.id;
     const numResults = 4;
+    const navigation = useNavigation();
 
     const [recipes, setRecipes] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -37,89 +39,73 @@ export default (props) => {
     }, [needRefresh])
 
     useEffect(() => {
-        if (currCollection != "Recommendations") {
+        const unsubscribe = navigation.addListener('focus', () => {
+            if (currCollection == "Recommendations") {
+                // return user's ingredients from firebase
+                const getIngredients = async () => {
+                    console.log("use effect saved ingredients array home")
+                    let savedIngredientsArray = [];
+                    return await entityRef
+                        .where("authorID", "==", userID)
+                        .get()
+                        .then((querySnapshot) => {
+                            querySnapshot.forEach((doc) => {
+                                savedIngredientsArray.push(doc.data().text);
+                                console.log("adding to array = " + doc.data().text)
+                            })
+                        })
+                        .then(() => console.log("saved ingredients array = " + savedIngredientsArray))
+                        .then(() => setSavedIngredients(savedIngredientsArray))
+                        .then(() => {
+                            return savedIngredientsArray;
+                        })
+                }
+
+                // get recipe recommendations based on ingredients
+                const getRecommendations = async (ingredients) => {
+                    setIsLoading(false)
+                    await fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients.toString()}&number=${numResults}&apiKey=${APIKEY}`)
+                        .then((res) => res.json())
+                        .then((resJson) => {
+                            setRecipes(resJson);
+                            console.log('recipes = ' + resJson)
+                        })
+                        .then(() => setIsLoading(false))
+                        .catch((error) => {
+                            console.log('error fetching recipe recommendations = ' + error);
+                            setIsLoading(true);
+                        });
+                };
+
+                getIngredients().then((ingredients) => getRecommendations(ingredients));
+            }
+        });
+
+        return unsubscribe;
+    }, [navigation]);
+
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            console.log("retreiving saved recipes");
+            let savedRecipesArray = [];
             savedRef
                 .where("user", "==", userID)
-                .where("collectionName", "==", currCollection)
                 .orderBy('createdAt', 'desc')
-                .onSnapshot(
-                    querySnapshot => {
-                        console.log("Got saved recipes")
-                        const newRecipes = []
-                        querySnapshot.forEach(doc => {
-                            const recipe = doc.data();
-                            recipe.id = doc.recipeId;
-                            newRecipes.push(recipe);
-                        });
-                        setRecipes(newRecipes);
-                        setIsLoading(false);
-                    },
-                    error => {
-                        console.log("Error retrieving saved recipes: " + error);
-                    }
-                )
-        }
-    }, [])
-
-    useEffect(() => {
-        if (currCollection == "Recommendations") {
-            // return user's ingredients from firebase
-            const getIngredients = async () => {
-                console.log("use effect saved ingredients array home")
-                let savedIngredientsArray = [];
-                return await entityRef
-                    .where("authorID", "==", userID)
-                    .get()
-                    .then((querySnapshot) => {
-                        querySnapshot.forEach((doc) => {
-                            savedIngredientsArray.push(doc.data().text);
-                            console.log("adding to array = " + doc.data().text)
-                        })
+                .get()
+                .then((querySnapshot) => {
+                    querySnapshot.forEach((doc) => {
+                        savedRecipesArray.push(doc.data().recipeDetails);
+                        console.log("adding to  saved recipes array = " + JSON.stringify(doc.data().recipeDetails));
                     })
-                    .then(() => console.log("saved ingredients array = " + savedIngredientsArray))
-                    .then(() => setSavedIngredients(savedIngredientsArray))
-                    .then(() => {
-                        return savedIngredientsArray;
-                    })
-            }
-
-            // get recipe recommendations based on ingredients
-            const getRecommendations = async (ingredients) => {
-                setIsLoading(false)
-                await fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients.toString()}&number=${numResults}&apiKey=${APIKEY}`)
-                    .then((res) => res.json())
-                    .then((resJson) => {
-                        setRecipes(resJson);
-                        console.log('recipes = ' + resJson)
-                    })
-                    .then(() => setIsLoading(false))
-                    .catch((error) => {
-                        console.log('error fetching recipe recommendations = ' + error);
-                        setIsLoading(true);
-                    });
-            };
-
-            getIngredients().then((ingredients) => getRecommendations(ingredients));
-        }
-    }, [])
-
-    useEffect(() => {
-        console.log("retreiving saved recipes");
-        let savedRecipesArray = [];
-        savedRef
-            .where("user", "==", userID)
-            .get()
-            .then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    savedRecipesArray.push(doc.data().recipeDetails);
-                    console.log("adding to  saved recipes array = " + JSON.stringify(doc.data().recipeDetails));
                 })
-            })
-            .then(() => console.log("saved recipes array = " + savedRecipesArray))
-            .then(() => setSavedRecipes(savedRecipesArray))
-            .catch((error) => { console.log("error fetching saved recipes = " + error); })
+                .then(() => console.log("saved recipes array = " + savedRecipesArray))
+                .then(() => setSavedRecipes(savedRecipesArray))
+                .catch((error) => { console.log("error fetching saved recipes = " + error); })
 
-    }, [])
+        });
+
+        return unsubscribe;
+    }, [navigation]);
 
 
     const renderRecipe = ({ item, index }) => {

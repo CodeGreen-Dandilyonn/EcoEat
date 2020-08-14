@@ -4,6 +4,7 @@ import styles from './styles';
 import { firebase } from '../../firebase/config';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import RecipeCard from '../../components/RecipeCard/RecipeCard';
+import { Ionicons } from "@expo/vector-icons";
 
 export default (props) => {
 
@@ -150,6 +151,8 @@ export default (props) => {
                         To help you use up the ingredients you already have on hand,
                         input your ingredients to get recommended recipes!
                             </Text>
+                    <Ionicons name="ios-arrow-dropdown" size={30} style={styles.downArrow} />
+
                 </View>
 
             )

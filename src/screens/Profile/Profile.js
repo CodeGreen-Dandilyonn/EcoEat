@@ -5,13 +5,56 @@ import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import styles from './styles';
 import { firebase } from '../../firebase/config'
 import { Colors } from '../../colors'
+import { ScrollView } from 'react-native-gesture-handler';
+
+const savedRef = firebase.firestore().collection('saved_recipes');
 
 export default (props) => {
   const navigation = useNavigation();
+  const [counter, setCounter] = useState(0);
 
   // const submitPressed = () => { //TODO: not working
   //     navigation.navigate('Login')
   // }
+
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      console.log("retreiving sustainable saved recipe count");
+      let savedCount = 0
+      savedRef
+        .where("user", "==", props.extraData.id)
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            if (doc.data().recipeDetails.vegan || doc.data().recipeDetails.vegetarian) {
+              savedCount += 1;
+            }
+          })
+        })
+        .then(() => setCounter(savedCount))
+        .catch((error) => { console.log("error fetching saved recipes count = " + error); })
+    });
+
+    return unsubscribe;
+  }, [navigation]);
+
+  useEffect(() => {
+    console.log("retreiving sustainable saved recipe count");
+    let savedCount = 0
+    savedRef
+      .where("user", "==", props.extraData.id)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          if (doc.data().recipeDetails.vegan || doc.data().recipeDetails.vegetarian) {
+            savedCount += 1;
+          }
+        })
+      })
+      .then(() => setCounter(savedCount))
+      .catch((error) => { console.log("error fetching saved recipes count = " + error); })
+  }, []);
 
   const capitalize = (nameString) => {
     let stringArray = nameString.split(/(\s+)/);
@@ -54,6 +97,14 @@ export default (props) => {
         <Text style={styles.userInfo}>{props.extraData.email}</Text>
 
       </View>
+      {counter > 0 ?
+        <View style={styles.counter}>
+          <Text style={styles.counterText}>Congratulations! You've saved {counter} sustainable recipes, which is saving around {counter * 500} gallons of water.</Text>
+        </View> :
+        <></>
+
+      }
+
 
       <TouchableOpacity style={styles.submitBtn} onPress={props.signout}>
         <Text style={styles.buttonText}>Logout</Text>

@@ -17,9 +17,10 @@ export default StyleSheet.create({
   submitBtn: {
     height: 47,
     borderRadius: 5,
-    top: 210,
-    backgroundColor: '#7BED8D',
+    // top: 210,
+    backgroundColor: Colors.brightGreen,
     width: 200,
+    // al: "flex-end",
     alignItems: "center",
     justifyContent: 'center',
     margin: 0
@@ -109,5 +110,15 @@ export default StyleSheet.create({
     alignSelf: 'center',
     marginTop: 20,
     marginBottom: 10
+  },
+  counter: {
+    margin: 30,
+    backgroundColor: Colors.brightGreen,
+    padding: 20,
+    borderRadius: 5
+  },
+  counterText: {
+    color: Colors.white,
+    fontSize: 20
   }
 });

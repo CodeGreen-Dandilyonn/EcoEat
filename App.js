@@ -94,7 +94,6 @@ export default function App() {
         <HomeStack.Screen name="Recipe Details">
           {props => <RecipeDetails {...props} extraData={user} changeRefresh={changeRefresh} />}
         </HomeStack.Screen>
-        <HomeStack.Screen options={{ headerShown: false }} name="Tutorial" component={PageFive} />
         {/* <HomeStack.Screen name="Recipe Details" component={RecipeDetails} /> */}
       </HomeStack.Navigator>
     )

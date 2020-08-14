@@ -68,7 +68,7 @@ export default StyleSheet.create({
         textAlign: 'center',
         color: Colors.darkGray,
         width: imageWidth - 60,
-        marginTop: -10
+        // marginTop: -10
     },
 
     recipeImage: {
@@ -156,11 +156,11 @@ export default StyleSheet.create({
         justifyContent: 'space-between'
     },
     bookmarkContainer: {
-        marginHorizontal: 30
+        marginHorizontal: 30,
     },
     bookmarkIcon: {
-        width: 30,
-        height: 30
+        width: 20,
+        height: 30,
     }
 
 })

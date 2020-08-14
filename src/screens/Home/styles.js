@@ -55,5 +55,8 @@ export default StyleSheet.create({
         marginBottom: 20,
         marginTop: 0
 
+    },
+    downArrow: {
+        marginTop: 30
     }
 });

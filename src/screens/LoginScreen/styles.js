@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { Colors } from '../../colors'
 
 export default StyleSheet.create({
     container: {
@@ -10,11 +11,12 @@ export default StyleSheet.create({
 
     },
     logo: {
-        flex: 1,
-        height: 120,
-        width: 90,
+        // flex: 1,
+        // height: 120,
+        // width: 90,
         alignSelf: "center",
-        margin: 30
+        margin: 30,
+        marginTop: 100
     },
 
     input: {
@@ -29,7 +31,7 @@ export default StyleSheet.create({
         paddingLeft: 16
     },
     button: {
-        backgroundColor: '#7BED8D',
+        backgroundColor: Colors.brightGreen,
         marginLeft: 30,
         marginRight: 30,
         marginTop: 20,
@@ -53,7 +55,7 @@ export default StyleSheet.create({
         color: '#2e2e2d'
     },
     footerLink: {
-        color: "#7BED8D",
+        color: Colors.brightGreen,
         fontWeight: "bold",
         fontSize: 16
     }

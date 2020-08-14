@@ -3,6 +3,8 @@ import { Colors } from '../../colors';
 
 const dimensions = Dimensions.get('window');
 const searchWidth = dimensions.width * 0.90;
+const imageWidth = dimensions.width * 0.94;
+const marginLeft = (dimensions.width - (imageWidth)) / 2;
 
 export default StyleSheet.create({
     container: {
@@ -77,11 +79,11 @@ export default StyleSheet.create({
     submitBtn: {
         height: 47,
         borderRadius: 5,
-        backgroundColor: '#7BED8D',
+        backgroundColor: Colors.brightGreen,
         width: 200,
         alignItems: "center",
         justifyContent: 'center',
-        marginTop: 35
+        margin: 45
     },
     listContainer: {
         marginTop: 12,
@@ -132,4 +134,25 @@ export default StyleSheet.create({
         fontWeight: '400',
         marginTop: 80
     },
+    errorText: {
+        textAlign: 'center',
+        fontSize: 18,
+        marginStart: 3 * marginLeft,
+        marginEnd: 3 * marginLeft
+    },
+    errorContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    noIngredientsImage: {
+        width: 160,
+        height: 210,
+        marginBottom: 20,
+        marginTop: 0
+    },
+    arrow: {
+        margin: 30
+    }
 })

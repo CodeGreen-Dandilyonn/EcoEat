@@ -17,12 +17,18 @@ export default StyleSheet.create({
   submitBtn: {
     height: 47,
     borderRadius: 5,
-    top: 210,
-    backgroundColor: '#7BED8D',
+    // top: 210,
+    backgroundColor: Colors.brightGreen,
     width: 200,
+    // al: "flex-end",
     alignItems: "center",
     justifyContent: 'center',
-    margin: 0
+    margin: 30
+  },
+  helpBtn: {
+    alignItems: 'flex-end',
+    marginRight: 15,
+    marginTop: 5
   },
   profileImage: {
     top: 15,
@@ -34,7 +40,8 @@ export default StyleSheet.create({
   image: {
     flex: 1,
     width: undefined,
-    height: undefined
+    height: undefined,
+    margin: 0
   },
   active: {
     backgroundColor: "#228B22",
@@ -72,9 +79,10 @@ export default StyleSheet.create({
   infoContainer: {
     backgroundColor: '#FFFFFF',
     width: containerWidth,
-    height: 310,
+    // height: 310,
     marginTop: 30,
-    borderRadius: 5
+    borderRadius: 5,
+    paddingBottom: 20
   },
 
   subTitle: {
@@ -102,5 +110,29 @@ export default StyleSheet.create({
     alignSelf: 'center',
     marginTop: 20,
     marginBottom: 10
+  },
+  counter: {
+    margin: 30,
+    marginBottom: 0,
+    borderWidth: 2,
+    borderColor: Colors.brightGreen,
+    padding: 20,
+    borderRadius: 5,
+
+  },
+  counterBasic: {
+    flexDirection: "row",
+    width: containerWidth
+  },
+  counterText: {
+    color: Colors.darkGray,
+    fontSize: 15,
+    marginLeft: 10
+  },
+  extraInfo: {
+    color: Colors.darkGray,
+    margin: 10,
+    marginBottom: 0,
+    fontSize: 10
   }
 });

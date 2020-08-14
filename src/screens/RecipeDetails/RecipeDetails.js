@@ -13,8 +13,8 @@ export default ({ route, changeRefresh }) => {
 
     const id = route.params.id;
     const navigation = useNavigation();
-    const APIKEY = '9d6c3108af68425a934d2fab780094ee'
-    // const APIKEY = 'ef5e2a0fe78649c68d5f5df5b63ab31f';
+    // const APIKEY = '9d6c3108af68425a934d2fab780094ee'
+    const APIKEY = 'ef5e2a0fe78649c68d5f5df5b63ab31f';
     // const APIKEY = 'f3edcb690303427c8511a070b39a73de';
     const savedRef = firebase.firestore().collection('saved_recipes')
     const userID = route.params.userId;
@@ -86,7 +86,8 @@ export default ({ route, changeRefresh }) => {
                 recipeId: id,
                 recipeDetails: recipe,
                 user: userID,
-                collection: "Saved"
+                collection: "Saved",
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
             };
             savedRef
                 .add(data)
@@ -207,7 +208,7 @@ export default ({ route, changeRefresh }) => {
                             <Image style={styles.bookmarkIcon} source={require('../../../assets/bookmark_filled.png')} />
                         ) : (
                                 // <BookmarkOutline style={styles.bookmarkIcon} />
-                                <Image style={styles.bookmarkIcon} source={require('../../../assets/bookmark_outline.png')} />
+                                <Image style={styles.bookmarkIcon} source={require('../../../assets/bookmark_outlined.png')} />
                             )}
                     </TouchableOpacity>
                 </View>

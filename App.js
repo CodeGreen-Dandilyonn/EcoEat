@@ -8,13 +8,16 @@ import ModifyPantry from './src/screens/ModifyPantry/ModifyPantry'
 import Profile from './src/screens/Profile/Profile'
 import RecipeDetails from './src/screens/RecipeDetails/RecipeDetails'
 import PageOne from './src/screens/Onboarding/PageOne'
+import Tutorial from './src/screens/Onboarding/Tutorial'
 import PageTwo from './src/screens/Onboarding/PageTwo'
 import PageThree from './src/screens/Onboarding/PageThree'
 import PageFour from './src/screens/Onboarding/PageFour'
 import PageFive from './src/screens/Onboarding/PageFive'
+import ActionBarImage from './assets/icon.png'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { decode, encode } from 'base-64'
 import { firebase } from './src/firebase/config'
+import { Colors } from './src/colors';
 
 if (!global.btoa) { global.btoa = encode }
 if (!global.atob) { global.atob = decode }
@@ -68,6 +71,7 @@ export default function App() {
   const [user, setUser] = useState(null)
   const [onboardingComplete, setOnboardingComplete] = useState(false)
   const [needRefresh, setNeedRefresh] = useState(false)
+  console.disableYellowBox = true;
 
   const changeRefresh = () => {
     console.log("calling for refresh")
@@ -120,20 +124,21 @@ export default function App() {
           },
         })}
         tabBarOptions={{
-          activeTintColor: "#7BED8D",
-          inactiveTintColor: '#748A9D',
-          showLabel: false
+          activeTintColor: Colors.brightGreen,
+          inactiveTintColor: Colors.darkGray,
+          showLabel: false,
         }}
+        initialRouteName="Modify Pantry"
       >
 
-        <HomeStack.Screen name="Home" component={RecipeStack} />
-        <HomeStack.Screen name="Modify Pantry">
+        <Tab.Screen name="Home" component={RecipeStack} />
+        <Tab.Screen name="Modify Pantry">
           {props => <ModifyPantry {...props} extraData={user} changeRefresh={changeRefresh} />}
-        </HomeStack.Screen>
+        </Tab.Screen>
         <Tab.Screen name="Profile">
           {props => <Profile {...props} signout={signout} extraData={user} />}
         </Tab.Screen>
-      </Tab.Navigator>
+      </Tab.Navigator >
     )
   }
 
@@ -143,7 +148,10 @@ export default function App() {
         {user ? (
           <>
             {onboardingComplete ?
-              (<Stack.Screen name="EcoEat" component={MainTabs} />)
+              (<>
+                <Stack.Screen name="EcoEat" component={MainTabs} />
+                <Stack.Screen options={{ headerShown: false }} name="Tutorial" component={Tutorial} />
+              </>)
               :
               (<>
                 <Stack.Screen options={{ headerShown: false }} name="Page One" component={PageOne} />

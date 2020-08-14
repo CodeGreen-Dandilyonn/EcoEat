@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import styles from './styles';
 import { firebase } from '../../firebase/config'
+import { Colors } from '../../colors'
 
 export default (props) => {
   const navigation = useNavigation();
@@ -23,6 +24,11 @@ export default (props) => {
 
   }
 
+  const help = () => {
+    console.log("help pressed")
+    navigation.navigate('Tutorial')
+  }
+
   const signOutUser = async () => {
     try {
       await firebase.auth().signOut();
@@ -36,7 +42,9 @@ export default (props) => {
     <View style={styles.container}>
 
       <View style={styles.infoContainer}>
-
+        <TouchableOpacity style={styles.helpBtn} onPress={help}>
+          <Ionicons name="ios-help-circle-outline" size={30} color={Colors.darkGray} />
+        </TouchableOpacity>
         <Image style={styles.icon} source={require('../../../assets/user_profile.png')} />
 
         <Text style={styles.subTitle}>Name</Text>
@@ -46,6 +54,7 @@ export default (props) => {
         <Text style={styles.userInfo}>{props.extraData.email}</Text>
 
       </View>
+
       <TouchableOpacity style={styles.submitBtn} onPress={props.signout}>
         <Text style={styles.buttonText}>Logout</Text>
       </TouchableOpacity>

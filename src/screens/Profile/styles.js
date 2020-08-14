@@ -24,6 +24,11 @@ export default StyleSheet.create({
     justifyContent: 'center',
     margin: 0
   },
+  helpBtn: {
+    alignItems: 'flex-end',
+    marginRight: 15,
+    marginTop: 5
+  },
   profileImage: {
     top: 15,
     width: 200,
@@ -34,7 +39,8 @@ export default StyleSheet.create({
   image: {
     flex: 1,
     width: undefined,
-    height: undefined
+    height: undefined,
+    margin: 0
   },
   active: {
     backgroundColor: "#228B22",
@@ -72,9 +78,10 @@ export default StyleSheet.create({
   infoContainer: {
     backgroundColor: '#FFFFFF',
     width: containerWidth,
-    height: 310,
+    // height: 310,
     marginTop: 30,
-    borderRadius: 5
+    borderRadius: 5,
+    paddingBottom: 20
   },
 
   subTitle: {

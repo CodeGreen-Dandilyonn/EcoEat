@@ -8,6 +8,7 @@ import ModifyPantry from './src/screens/ModifyPantry/ModifyPantry'
 import Profile from './src/screens/Profile/Profile'
 import RecipeDetails from './src/screens/RecipeDetails/RecipeDetails'
 import PageOne from './src/screens/Onboarding/PageOne'
+import Tutorial from './src/screens/Onboarding/Tutorial'
 import PageTwo from './src/screens/Onboarding/PageTwo'
 import PageThree from './src/screens/Onboarding/PageThree'
 import PageFour from './src/screens/Onboarding/PageFour'
@@ -93,7 +94,7 @@ export default function App() {
         <HomeStack.Screen name="Recipe Details">
           {props => <RecipeDetails {...props} extraData={user} changeRefresh={changeRefresh} />}
         </HomeStack.Screen>
-        <HomeStack.Screen options={{ headerShown: false }} name="Tutorial" component={PageTwo} />
+        <HomeStack.Screen options={{ headerShown: false }} name="Tutorial" component={PageFive} />
         {/* <HomeStack.Screen name="Recipe Details" component={RecipeDetails} /> */}
       </HomeStack.Navigator>
     )
@@ -144,7 +145,10 @@ export default function App() {
         {user ? (
           <>
             {onboardingComplete ?
-              (<Stack.Screen name="EcoEat" component={MainTabs} />)
+              (<>
+                <Stack.Screen name="EcoEat" component={MainTabs} />
+                <Stack.Screen options={{ headerShown: false }} name="Tutorial" component={Tutorial} />
+              </>)
               :
               (<>
                 <Stack.Screen options={{ headerShown: false }} name="Page One" component={PageOne} />

@@ -5,6 +5,7 @@ A mobile recipe app empowering users to reduce food waste and engage with food s
 1. [Overview](#Overview)
 2. [App Demo/Walkthrough](#App-Demo)
 3. [Available Scripts](#Available-Scripts)
+4. [Credits](#Credits)
 
 ## Overview
 ### Description
@@ -52,3 +53,8 @@ Running any of the commands above opens up Expo Developer Tools.
 - Step 1 : Navigate to Android Studio and start emulator from AVD Manager
 - Step 2 : Run ```expo start``` in the project directory
 - Step 3 : Once Expo Developer Tools opens, select option "run on Android Emulator"
+
+## Credits
+EcoEat is a project created by Anna Zhang, Samantha Liu, Liya Mulugeta, and Janavi Chadha during the summer of 2020 during ![SEEDS](http://www.dandilyonn.com/seeds.html) (​Summer Environmental Education Development Program). 
+
+Special thanks to ![Dandilyonn](http://www.dandilyonn.com/) for organizing SEEDS 2020, our mentor Spoorthi for all of her guidance and support, as well as Archana Chaudhary for leading this program. We couldn't have created this app without the support of all of these people.

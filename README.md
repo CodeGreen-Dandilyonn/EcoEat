@@ -1,5 +1,4 @@
-# EcoEat
-
+# EcoEat &nbsp;<img src="/assets/icon.png" height=30/>
 A mobile recipe app empowering users to reduce food waste and engage with food sustainability.
 
 ## Table of Contents
@@ -23,7 +22,7 @@ EcoEat is a React Native mobile application that provides users with recipes bas
 * Users can see their environmental impact on their profile page based on number of saved vegan/vegetarian recipes
 
 ## App Demo
-![Demo](demo.gif)
+![Demo](/assets/demo.gif)
 
 ## Available Scripts
 To run the app, download the Expo app on the App Store or Google Play Store.

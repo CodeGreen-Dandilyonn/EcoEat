@@ -1,5 +1,7 @@
 # EcoEat &nbsp;<img src="/assets/icon.png" height=30/>
 A mobile recipe app empowering users to reduce food waste and engage with food sustainability.
+![Google Play Store](https://play.google.com/store/apps/details?id=com.codegreen.ecoeat)
+![Expo Build](https://expo.io/@annazhang2002/ecoeat)
 
 ## Table of Contents
 1. [Overview](#Overview)
